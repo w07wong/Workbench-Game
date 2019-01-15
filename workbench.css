@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    margin: 0;
+}
+
+#workbench {
+    background-image: url("./assets/img/workbench.jpg");
+    background-size: cover;
+    flex: 1;
+}
+
+#hammers {
+    height: 100px;
+}
+
+#wrenches {
+    height: 100px;
+}
+
+.dropzone {
+    background-color: #ccc;
+    border: dashed 4px transparent;
+    border-radius: 4px;
+    margin: 10px auto 30px;
+    padding: 10px;
+    width: 80%;
+    transition: background-color 0.3s;
+}
+
+.drop-active {
+    border-color: #aaa;
+}
+
+.drop-target {
+    background-color: #29e;
+    border-color: #fff;
+    border-style: solid;
+}
+
+.draggable {
+    display: inline-block;
+    border: solid 2px #ffff00;
+    -webkit-transform: translate(0px, 0px);
+          transform: translate(0px, 0px);
+}
+
+.draggable.can-drop {
+    border-color: #0000ff;
+}
+
+.draggable.dropped {
+    border-color: #00ff00;
+}
