@@ -61,6 +61,7 @@ interact('.dropzone').dropzone({
     ondrop: function (event) {
         event.relatedTarget.classList.add('dropped');
         event.relatedTarget.textContent = 'Dropped';
+        $(event.target).data('toolsContained').push(event.relatedTarget.id);
     },
     ondropdeactivate: function (event) {
         // remove active dropzone feedback
@@ -70,7 +71,7 @@ interact('.dropzone').dropzone({
 });
 
 var timerInterval = null;
-var seconds = 2;
+var seconds = 60; 
 function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
@@ -86,3 +87,9 @@ function startTimer() {
     var timerDisplay = document.getElementById('timer');
     timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
 }
+
+$(document).ready(function() {
+    $('.dropzone').each(function(i, obj) {
+        $(obj).data('toolsContained', []);
+    });
+});
