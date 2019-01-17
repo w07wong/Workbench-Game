@@ -68,3 +68,21 @@ interact('.dropzone').dropzone({
         event.target.classList.remove('drop-target');
     }
 });
+
+var timerInterval = null;
+var seconds = 2;
+function timer(timerDisplay) {
+    if (seconds >= 0) {
+        timerDisplay.innerText = seconds;
+        seconds--;
+    } else {
+        clearInterval(timerInterval);
+        alert('Time\'s Up!');
+    }
+}
+
+function startTimer() {
+    document.getElementById('startButton').hidden = true;
+    var timerDisplay = document.getElementById('timer');
+    timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
+}

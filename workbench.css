@@ -63,3 +63,8 @@ body {
 .draggable.dropped {
     border-color: #00ff00;
 }
+
+#timer {
+    color: white;
+    font-size: 40px;
+}
