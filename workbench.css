@@ -12,14 +12,21 @@ body {
     background-image: url("./assets/img/workbench.jpg");
     background-size: cover;
     flex: 1;
+    overflow: auto;
 }
 
-#hammers {
-    height: 100px;
+#left-bin {
+    height: 13vmax;
+    width: 13vmax;
+    float: left;
+    clear: left;
 }
 
-#wrenches {
-    height: 100px;
+#right-bin {
+    height: 13vmax;
+    width: 13vmax;
+    float: right;
+    clear: right;
 }
 
 .dropzone {
