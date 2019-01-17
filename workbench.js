@@ -57,6 +57,7 @@ interact('.dropzone').dropzone({
         event.relatedTarget.classList.remove('can-drop');
         event.relatedTarget.classList.remove('dropped');
         event.relatedTarget.textContent = 'Dragged out';
+        $(event.target).data('toolsContained').splice($(event.target).data('toolsContained').length - 1, 1);
     },
     ondrop: function (event) {
         event.relatedTarget.classList.add('dropped');
@@ -79,6 +80,7 @@ function timer(timerDisplay) {
     } else {
         clearInterval(timerInterval);
         alert('Time\'s Up!');
+        saveGroupings();
     }
 }
 
@@ -93,3 +95,7 @@ $(document).ready(function() {
         $(obj).data('toolsContained', []);
     });
 });
+
+function saveGroupings() {
+
+}
