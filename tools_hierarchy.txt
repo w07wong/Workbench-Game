@@ -1,0 +1,86 @@
+~ Power Tools
+-: Drills
+---> Drills/Drivers
+---> Hammer Drills
+---> Right Angle Drills
+---> Impact Drivers
+-: Saws
+---> Circular Saws
+---> Milter Saws
+---> Reciprocating Saws
+---> Table Saws
+-: Batteries and Chargers
+-: Sanders & Grinders
+---> Belt Sanders
+---> Disc & Orbital Sanders
+---> Angle Grinders
+---> Bench Grinders
+
+~ Hand Tools
+-: Cutting Tools
+---> Knives & Utility Knives
+---> Hand Saws
+---> Jigs
+---> Snips & Sidecutters
+-: Wrenches
+---> Box Wrenches
+---> Adjustable Wrenches
+---> Torque Wrenches
+---> Hex Keys
+-: Screwdrivers
+---> Phillips
+---> Slotted Screwdrivers
+---> Multi-Bit Screwdrivers
+---> Nut Drivers
+-: Pliers
+---> Needle Nose
+---> Cutting Pliers
+---> Crimpers
+---> Slip Joint
+-: Measuring & Layout
+---> Levels
+---> Tape Measures
+-: Sockets & Ratchets
+---> Sockets
+---> Ratchets
+-: Fastening Tools
+---> Clamps & Vises
+---> Staple Guns
+---> Rivet Tools
+---> Staples
+-: Hammers
+---> Claw Hammers
+---> Sledgehammers
+---> Mallets
+-: Plumbing Tools
+---> Pipe & Tube Cutters
+-: Electrical Tools
+---> Test Meters
+---> Wire Stripper/Cutter
+---> Fish Tape
+---> Conduit Bender
+-: Chisels
+-: Safety Gear
+---> Glasses
+---> Hearing protection
+---> Hard Hats
+-: Flashlights
+---> Handheld
+---> Headlamp
+-: Fasteners
+---> Screws
+---> Bolts
+---> Anchors
+---> Nails
+
+~ Soldering & Welding Tools
+-: Welding
+---> Torches & Tanks
+---> Welders
+---> Welding Helmets
+-: Soldering
+---> Soldering Station
+---> Soldering Gun
+---> Solder
+
+

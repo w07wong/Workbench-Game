@@ -3,21 +3,35 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Drag Drop Demo</title>
-    <link rel="stylesheet" href="main.css">
+    <title>Workbench Decluttering</title>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/workbench.css">
+    <!-- InteractJS -->
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
-    <script src="main.js"></script>
+    <!-- Main JS -->
+    <script src="js/workbench.js"></script>
 </head>
 
 <body>
-    <!-- <img class="draggable" src="./assets/img/hammer.png" width="100" height="100">
-    <img class="draggable" src="./assets/img/wrench.png" width="100" height="100"> -->
+    <div id="workbench">
+        <p id="timer"></p>
+        <button id="startButton" type="button" onclick="startTimer()">Start!</button>
+        
+        <img id="hammer" class="draggable" src="images/hammer.png" width="150" height="150">
+        <img id="wrench" class="draggable" src="images/wrench.png" width="150" height="150">
+        <div id="left-bin" class="dropzone"></div>
+        <div id="right-bin" class="dropzone"></div>
+        
+        <div id="left-bin" class="dropzone"></div>
+        <div id="right-bin" class="dropzone"></div>
 
-    <div id="yes-drop" class="drag-drop"> #yes-drop </div>
-    
-    <div id="outer-dropzone" class="dropzone">
-        #outer-dropzone
-        <div id="inner-dropzone" class="dropzone">#inner-dropzone</div>
+        <div id="left-bin" class="dropzone"></div>
+        <div id="right-bin" class="dropzone"></div>
+        <!-- <div id="wrenches" class="dropzone">
+            Wrenches
+        </div> -->
     </div>
 </body>
 
