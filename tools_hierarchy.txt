@@ -6,15 +6,11 @@
 ---> Impact Drivers
 -: Saws
 ---> Circular Saws
----> Milter Saws
 ---> Reciprocating Saws
----> Table Saws
 -: Batteries and Chargers
 -: Sanders & Grinders
----> Belt Sanders
----> Disc & Orbital Sanders
+---> Orbital Sanders
 ---> Angle Grinders
----> Bench Grinders
 
 ~ Hand Tools
 -: Cutting Tools
