@@ -15,18 +15,8 @@ body {
     overflow: auto;
 }
 
-#left-bin {
-    height: 13vmax;
-    width: 13vmax;
-    float: left;
-    clear: left;
-}
-
-#right-bin {
-    height: 13vmax;
-    width: 13vmax;
-    float: right;
-    clear: right;
+.draggable {
+    position: relative;
 }
 
 .dropzone {
@@ -37,6 +27,20 @@ body {
     padding: 10px;
     width: 80%;
     transition: background-color 0.3s;
+}
+
+.left-bin {
+    height: 13vmax;
+    width: 13vmax;
+    float: left;
+    clear: left;
+}
+
+.right-bin {
+    height: 13vmax;
+    width: 13vmax;
+    float: right;
+    clear: right;
 }
 
 .drop-active {
@@ -51,17 +55,43 @@ body {
 
 .draggable {
     display: inline-block;
-    border: solid 2px #ffff00;
+    /* border: solid 2px #ffff00; */
     -webkit-transform: translate(0px, 0px);
-          transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+
+    -webkit-filter: drop-shadow(2px 2px 0 #ffff00)
+                    drop-shadow(-2px 2px 0 #ffff00)
+                    drop-shadow(2px -2px 0 #ffff00)
+                    drop-shadow(-2px -2px 0 #ffff00);
+
+    filter: drop-shadow(2px 2px 0 #ffff00) 
+            drop-shadow(-2px 2px 0 #ffff00)
+            drop-shadow(2px -2px 0 #ffff00)
+            drop-shadow(-2px -2px 0 #ffff00);
 }
 
 .draggable.can-drop {
-    border-color: #0000ff;
+    -webkit-filter: drop-shadow(2px 2px 0 #0000ff)
+                    drop-shadow(-2px 2px 0 #0000ff)
+                    drop-shadow(2px -2px 0 #0000ff)
+                    drop-shadow(-2px -2px 0 #0000ff);
+
+    filter: drop-shadow(2px 2px 0 #0000ff) 
+            drop-shadow(-2px 2px 0 #0000ff)
+            drop-shadow(2px -2px 0 #0000ff)
+            drop-shadow(-2px -2px 0 #0000ff);
 }
 
 .draggable.dropped {
-    border-color: #00ff00;
+    -webkit-filter: drop-shadow(2px 2px 0 #00ff00)
+                    drop-shadow(-2px 2px 0 #00ff00)
+                    drop-shadow(2px -2px 0 #00ff00)
+                    drop-shadow(-2px -2px 0 #00ff00);
+
+    filter: drop-shadow(2px 2px 0 #00ff00) 
+            drop-shadow(-2px 2px 0 #00ff00)
+            drop-shadow(2px -2px 0 #00ff00)
+            drop-shadow(-2px -2px 0 #00ff00);
 }
 
 #timer {
