@@ -20,7 +20,7 @@ body {
 }
 
 .dropzone {
-    background-color: #ccc;
+    /* background-color: #ccc; */
     border: dashed 4px transparent;
     border-radius: 4px;
     margin: 10px auto 30px;
@@ -30,17 +30,23 @@ body {
 }
 
 .left-bin {
-    height: 13vmax;
-    width: 13vmax;
+    height: 25vmax;
+    width: 20vmax;
     float: left;
     clear: left;
+    background-image: url('../images/left-bin.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .right-bin {
-    height: 13vmax;
-    width: 13vmax;
+    height: 25vmax;
+    width: 20vmax;
     float: right;
     clear: right;
+    background-image: url('../images/right-bin.png');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .drop-active {
@@ -59,7 +65,7 @@ body {
     -webkit-transform: translate(0px, 0px);
     transform: translate(0px, 0px);
 
-    -webkit-filter: drop-shadow(2px 2px 0 #ffff00)
+    /* -webkit-filter: drop-shadow(2px 2px 0 #ffff00)
                     drop-shadow(-2px 2px 0 #ffff00)
                     drop-shadow(2px -2px 0 #ffff00)
                     drop-shadow(-2px -2px 0 #ffff00);
@@ -67,11 +73,11 @@ body {
     filter: drop-shadow(2px 2px 0 #ffff00) 
             drop-shadow(-2px 2px 0 #ffff00)
             drop-shadow(2px -2px 0 #ffff00)
-            drop-shadow(-2px -2px 0 #ffff00);
+            drop-shadow(-2px -2px 0 #ffff00); */
 }
 
 .draggable.can-drop {
-    -webkit-filter: drop-shadow(2px 2px 0 #0000ff)
+    /* -webkit-filter: drop-shadow(2px 2px 0 #0000ff)
                     drop-shadow(-2px 2px 0 #0000ff)
                     drop-shadow(2px -2px 0 #0000ff)
                     drop-shadow(-2px -2px 0 #0000ff);
@@ -79,11 +85,11 @@ body {
     filter: drop-shadow(2px 2px 0 #0000ff) 
             drop-shadow(-2px 2px 0 #0000ff)
             drop-shadow(2px -2px 0 #0000ff)
-            drop-shadow(-2px -2px 0 #0000ff);
+            drop-shadow(-2px -2px 0 #0000ff); */
 }
 
 .draggable.dropped {
-    -webkit-filter: drop-shadow(2px 2px 0 #00ff00)
+    /* -webkit-filter: drop-shadow(2px 2px 0 #00ff00)
                     drop-shadow(-2px 2px 0 #00ff00)
                     drop-shadow(2px -2px 0 #00ff00)
                     drop-shadow(-2px -2px 0 #00ff00);
@@ -91,7 +97,7 @@ body {
     filter: drop-shadow(2px 2px 0 #00ff00) 
             drop-shadow(-2px 2px 0 #00ff00)
             drop-shadow(2px -2px 0 #00ff00)
-            drop-shadow(-2px -2px 0 #00ff00);
+            drop-shadow(-2px -2px 0 #00ff00); */
 }
 
 #timer {

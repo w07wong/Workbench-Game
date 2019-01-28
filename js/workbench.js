@@ -1,5 +1,14 @@
+// For snapping
+var startPos = null;
+
 interact('.draggable')
     .draggable({
+        snap: {
+            targets: [startPos],
+            range: Infinity,
+            relativePoints: [ {x: 0.5, y: 0.5 } ],
+            endOnly: true
+        },
         inertia: false,
         restrict: {
             restriction: "parent",
@@ -10,6 +19,19 @@ interact('.draggable')
                 bottom: 1,
                 right: 1
             }
+        },
+        onstart: function (event) {
+            var rect = interact.getElementRect(event.target);
+            // record center point when starting the very first a drag
+            startPos = {
+                x: rect.left + rect.width  / 2,
+                y: rect.top  + rect.height / 2
+            }
+            event.interactable.draggable({
+                snap: {
+                    targets: [startPos]
+                }
+            });
         },
         onmove: dragMoveListener,
     });
@@ -33,7 +55,7 @@ interact('.dropzone').dropzone({
     // only accept elements matching this CSS selector
     // accept: '#yes-drop',
     // Require a 75% element overlap for a drop to be possible
-    overlap: 1,
+    overlap: .25,
 
     // listen for drop related events:
 
@@ -43,7 +65,18 @@ interact('.dropzone').dropzone({
     },
     ondragenter: function (event) {
         var draggableElement = event.relatedTarget,
-            dropzoneElement = event.target;
+            dropzoneElement = event.target,
+            dropRect = interact.getElementRect(dropzoneElement),
+            dropCenter = {
+              x: dropRect.left + dropRect.width  / 2,
+              y: dropRect.top  + dropRect.height / 2
+            };
+
+        event.draggable.draggable({
+            snap: {
+                targets: [dropCenter]
+            }
+        });
 
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
@@ -56,6 +89,14 @@ interact('.dropzone').dropzone({
         event.relatedTarget.classList.remove('can-drop');
         event.relatedTarget.classList.remove('dropped');
         event.relatedTarget.textContent = 'Dragged out';
+
+        // Remove snapping
+        event.draggable.draggable({
+            snap: {
+                targets: [null]
+            }
+        });
+
         // Delete tool from toolsContained
         if ($(event.relatedTarget).attr('data-index') !== undefined) {
             $(event.target).data('toolsContained').splice($(event.relatedTarget).attr('data-index'), 1);
@@ -92,9 +133,9 @@ function timer(timerDisplay) {
 function startTimer() {
     drawTools();
     addToolsStorage();
-    document.getElementById('startButton').hidden = true;
-    var timerDisplay = document.getElementById('timer');
-    timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
+    // document.getElementById('startButton').hidden = true;
+    // var timerDisplay = document.getElementById('timer');
+    // timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
 }
 
 function addToolsStorage() {
@@ -135,16 +176,18 @@ var images = {
 var numTools;
 var topZIndex;
 function drawTools() {
-    numTools = Math.floor(Math.random() * 20) + 20;
+    numTools = Math.floor(Math.random() * 15) + 15;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
         var workbench = document.getElementById('workbench');
 
-        var d = document.createElement('div');
-        d.innerHTML = "<img data-name=\"" + images[tool] + "\" class=\"draggable\" src=\"images\\" + tool + ".png\" width=\"150\" height=\"150\">";
-        var element = d.firstChild;
-        element.addEventListener('click', moveToFront);
+        var div = document.createElement('div');
+        var deg = Math.floor(Math.random() * 360);
+        console.log(deg);
+        div.innerHTML = "<img data-name=\"" + images[tool] + "\" class=\"draggable\" src=\"images\\" + tool + ".png\" width=\"150\" height=\"150\" style=\"transform:rotate(" + deg + "deg);\">";
+        var element = div.firstChild;
+        element.addEventListener('mousedown', moveToFront);
 
         workbench.appendChild(element);
         // add event listener
