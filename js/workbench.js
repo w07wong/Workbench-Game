@@ -123,6 +123,7 @@ function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
         seconds--;
+        saveGroupings();
     } else {
         clearInterval(timerInterval);
         alert('Time\'s Up!');
@@ -133,9 +134,9 @@ function timer(timerDisplay) {
 function startTimer() {
     drawTools();
     addToolsStorage();
-    // document.getElementById('startButton').hidden = true;
-    // var timerDisplay = document.getElementById('timer');
-    // timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
+    document.getElementById('startButton').hidden = true;
+    var timerDisplay = document.getElementById('timer');
+    timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
 }
 
 function addToolsStorage() {
@@ -145,38 +146,64 @@ function addToolsStorage() {
 }
 
 function saveGroupings() {
+    var totalScore = 0;
     $('.dropzone').each(function(i, obj) {
-        console.log($(obj).data('toolsContained'));
+        var toolsContained = $(obj).data('toolsContained');
+
+        var cutting = 0;
+        var power = 0;
+        var drilling = 0;
+        var hand = 0;
+
+        for (var i = 0; i < toolsContained.length; i++) {
+            var tool = toolsContained[i];
+            var toolName = images[tool][0];
+            var toolCategory = images[tool][1];
+            console.log(toolName);
+            switch(toolCategory) {
+                case "cutting-tool": cutting++;
+                case "power-tool": power++;
+                case "drilling-tool": drilling++;
+                case "hand-tool": hand++;
+                default: break;
+            }
+        }
+        var binScore = parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2));
+        console.log(binScore);
+        totalScore += binScore;
     }); 
     $('.draggable').each(function(i, obj) {
+        var tool = $(obj).attr('data-name');
         // undefined if object is never clicked
-        console.log($(obj).attr('data-name') + ": " + $(obj).attr('data-x') + ', ' + $(obj).attr('data-y'));
+        console.log(images[tool][0] + ": " + $(obj).attr('data-x') + ', ' + $(obj).attr('data-y'));
     }); 
+
+    alert("Your score: " + totalScore);
 }
 
 var images = {
-    "1": "angle-grinder",
-    "2": "battery",
-    "3": "circular-saw",
-    "4": "drill",
-    "5": "hammer-drill",
-    "6": "hammer",
-    "7": "hand-saw",
-    "8": "impact-driver",
-    "9": "jigsaw",
-    "10": "orbital-sander",
-    "11": "reciprocating-saw",
-    "12": "right-angle-drill",
-    "13": "side-cutter",
-    "14": "snips",
-    "15": "utility-knife",
-    "16": "wrench"
+    "1": ["angle-grinder", "cutting-tool"],
+    "2": ["battery", "power-tool"],
+    "3": ["circular-saw", "cutting-tool"],
+    "4": ["drill", "drilling-tool"],
+    "5": ["hammer-drill", "drilling-tool"],
+    "6": ["hammer", "hand-tool"],
+    "7": ["hand-saw", "cutting-tool"],
+    "8": ["impact-driver", "drilling-tool"],
+    "9": ["jigsaw", "cutting-tool"],
+    "10": ["orbital-sander", "power-tool"],
+    "11": ["reciprocating-saw", "cutting-tool"],
+    "12": ["right-angle-drill", "drilling-tool"],
+    "13": ["side-cutter", "cutting-tool"],
+    "14": ["snips", "cutting-tool"],
+    "15": ["utility-knife", "cutting-tool"],
+    "16": ["wrench", "hand-tool"],
 };
 
 var numTools;
 var topZIndex;
 function drawTools() {
-    numTools = Math.floor(Math.random() * 15) + 15;
+    numTools = Math.floor(Math.random() * 10) + 10;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
@@ -184,8 +211,8 @@ function drawTools() {
 
         var div = document.createElement('div');
         var deg = Math.floor(Math.random() * 360);
-        console.log(deg);
-        div.innerHTML = "<img data-name=\"" + images[tool] + "\" class=\"draggable\" src=\"images\\" + tool + ".png\" width=\"150\" height=\"150\" style=\"transform:rotate(" + deg + "deg);\">";
+        // console.log(deg);
+        div.innerHTML = "<img data-name=\"" + tool + "\" class=\"draggable\" src=\"images\\" + tool + ".png\" width=\"150\" height=\"150\" style=\"transform:rotate(" + deg + "deg);\">";
         var element = div.firstChild;
         element.addEventListener('mousedown', moveToFront);
 
