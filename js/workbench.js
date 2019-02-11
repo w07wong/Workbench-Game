@@ -3,6 +3,28 @@ var startPos = null;
 
 var PLAYER = null;
 var AGE = null;
+var FEEDBACK = null;
+
+var dataToSave = {};
+
+var images = {
+    "1": ["angle-grinder", "cutting-tool"],
+    "2": ["battery", "power-tool"],
+    "3": ["circular-saw", "cutting-tool"],
+    "4": ["drill", "drilling-tool"],
+    "5": ["hammer-drill", "drilling-tool"],
+    "6": ["hammer", "hand-tool"],
+    "7": ["hand-saw", "cutting-tool"],
+    "8": ["impact-driver", "drilling-tool"],
+    "9": ["jigsaw", "cutting-tool"],
+    "10": ["orbital-sander", "power-tool"],
+    "11": ["reciprocating-saw", "cutting-tool"],
+    "12": ["right-angle-drill", "drilling-tool"],
+    "13": ["side-cutter", "cutting-tool"],
+    "14": ["snips", "cutting-tool"],
+    "15": ["utility-knife", "cutting-tool"],
+    "16": ["wrench", "hand-tool"],
+};
 
 interact('.draggable')
     .draggable({
@@ -128,19 +150,20 @@ function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
         seconds--;
-        savePositions();
+        savePositions("state" + seconds);
     } else {
         clearInterval(timerInterval);
-        alert('Time\'s Up!');
-        savePoisition();
+        savePositions();
         saveGroupings();
+        promptFeedback();
+        sendToDB();
     }
 }
 
 function startTimer() {
     drawTools();
     addToolsStorage();
-    document.getElementById('startButton').hidden = true;
+    // document.getElementById('startButton').hidden = true;
     var timerDisplay = document.getElementById('timer');
     timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
 }
@@ -151,11 +174,14 @@ function addToolsStorage() {
     });
 }
 
-function savePositions() {
+function savePositions(state) {
+    dataToSave[state]= {};
     $('.draggable').each(function(i, obj) {
         var tool = $(obj).attr('data-name');
-        // undefined if object is never clicked
-        console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
+        var id = $(obj).attr('data-object-id'); 
+        // undefined if object is never clicked 
+        // console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
+        dataToSave[state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
     }); 
 }
 
@@ -163,17 +189,22 @@ function saveGroupings() {
     var totalScore = 0;
     $('.dropzone').each(function(i, obj) {
         var toolsContained = $(obj).data('toolsContained');
+        
+        dataToSave["bin" + i] = [];
 
         var cutting = 0;
         var power = 0;
         var drilling = 0;
         var hand = 0;
 
-        for (var i = 0; i < toolsContained.length; i++) {
-            var tool = toolsContained[i];
+        for (var j = 0; j < toolsContained.length; j++) {
+            var tool = toolsContained[j];
             var toolName = images[tool][0];
             var toolCategory = images[tool][1];
-            console.log(toolName);
+
+            dataToSave["bin" + i].push(toolName);
+            // console.log(toolName);
+
             switch(toolCategory) {
                 case "cutting-tool": cutting++;
                 case "power-tool": power++;
@@ -186,27 +217,8 @@ function saveGroupings() {
         console.log(binScore);
         totalScore += binScore;
     }); 
-    alert("Your score: " + totalScore);
+    alert("Times Up! \nYour score: " + totalScore);
 }
-
-var images = {
-    "1": ["angle-grinder", "cutting-tool"],
-    "2": ["battery", "power-tool"],
-    "3": ["circular-saw", "cutting-tool"],
-    "4": ["drill", "drilling-tool"],
-    "5": ["hammer-drill", "drilling-tool"],
-    "6": ["hammer", "hand-tool"],
-    "7": ["hand-saw", "cutting-tool"],
-    "8": ["impact-driver", "drilling-tool"],
-    "9": ["jigsaw", "cutting-tool"],
-    "10": ["orbital-sander", "power-tool"],
-    "11": ["reciprocating-saw", "cutting-tool"],
-    "12": ["right-angle-drill", "drilling-tool"],
-    "13": ["side-cutter", "cutting-tool"],
-    "14": ["snips", "cutting-tool"],
-    "15": ["utility-knife", "cutting-tool"],
-    "16": ["wrench", "hand-tool"],
-};
 
 var numTools;
 var topZIndex;
@@ -234,6 +246,9 @@ function drawTools() {
         div.setAttribute("data-name", tool);
         div.setAttribute("height", "100%");
         div.setAttribute("width", "100%");
+        div.setAttribute("data-rotate", deg);
+        div.setAttribute("data-blur", blur);
+        div.setAttribute("data-object-id", i);
 
         $(div).prepend(img);
 
@@ -251,14 +266,27 @@ function moveToFront(deg) {
 function promptUser() {
     promptName();
     promptAge();
+    startTimer();
 }
 
 function promptName() {
     var person = prompt("Please enter your name:", "");
     PLAYER = person;
+    dataToSave.player = PLAYER;
 }
 
 function promptAge() {
     var age = prompt("Please enter your age:", "");
     AGE = age;
+    dataToSave.age = AGE;
+}
+
+function promptFeedback() {
+    var feedback = prompt("What was your organization strategy?", "ex: By color, shape, utility, etc.");
+    FEEDBACK = feedback;
+    dataToSave.feedback = FEEDBACK;
+}
+
+function sendToDB() {
+
 }

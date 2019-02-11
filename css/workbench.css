@@ -30,8 +30,8 @@ body {
 }
 
 .left-bin {
-    height: 25vmax;
-    width: 20vmax;
+    height: 400px;
+    width: 300px;
     float: left;
     clear: left;
     background-image: url('../images/left-bin.png');
@@ -40,8 +40,8 @@ body {
 }
 
 .right-bin {
-    height: 25vmax;
-    width: 20vmax;
+    height: 400px;
+    width: 300px;
     float: right;
     clear: right;
     background-image: url('../images/right-bin.png');
