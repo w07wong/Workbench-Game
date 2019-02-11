@@ -123,7 +123,7 @@ function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
         seconds--;
-        saveGroupings();
+        // saveGroupings();
     } else {
         clearInterval(timerInterval);
         alert('Time\'s Up!');
