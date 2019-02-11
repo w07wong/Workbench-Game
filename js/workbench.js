@@ -290,7 +290,7 @@ function promptAge() {
     var age = prompt("Please enter your age:", "");
     AGE = age;
     dataToSave.age = AGE;
-    prompt("Organize the workbench in the next 60 seconds!");
+    alert("Organize the workbench in the next 60 seconds!");
 }
 
 function promptFeedback() {
