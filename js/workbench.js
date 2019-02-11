@@ -210,18 +210,32 @@ function drawTools() {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
         var workbench = document.getElementById('workbench');
 
-        var div = document.createElement('div');
         var deg = Math.floor(Math.random() * 360);
+        var blur = Math.floor(Math.random() * 10);
         // console.log(deg);
-        div.innerHTML = "<img data-name=\"" + tool + "\" class=\"draggable\" src=\"images\\" + tool + ".png\" width=\"150\" height=\"150\" style=\"transform:rotate(" + deg + "deg);\">";
-        var element = div.firstChild;
-        element.addEventListener('mousedown', moveToFront);
 
-        workbench.appendChild(element);
+        var img = document.createElement("img");
+        img.setAttribute("src", "./images/" + tool + ".png");
+        img.setAttribute("height", "150");
+        img.setAttribute("width", "150");
+        img.setAttribute("style", "transform:rotate(" + deg + "deg);" +
+                                  "filter:blur(" + blur + "px)");
+
+        var div = document.createElement('div');
+        div.setAttribute("class", "draggable");
+        div.setAttribute("data-name", tool);
+        div.setAttribute("height", "100%");
+        div.setAttribute("width", "100%");
+
+        $(div).prepend(img);
+
+        div.addEventListener('mousedown', moveToFront);
+
+        workbench.appendChild(div);
         // add event listener
     }
 }
 
-function moveToFront() {
+function moveToFront(deg) {
     $(this).css('z-index', topZIndex++);
 }
