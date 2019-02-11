@@ -49,6 +49,8 @@ function dragMoveListener(event) {
     // update the posiion attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
+    target.setAttribute('data-true-x', $(target).offset().top);
+    target.setAttribute('data-true-y', $(target).offset().left);
 }
 
 interact('.dropzone').dropzone({
@@ -123,10 +125,11 @@ function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
         seconds--;
-        // saveGroupings();
+        savePositions();
     } else {
         clearInterval(timerInterval);
         alert('Time\'s Up!');
+        savePoisition();
         saveGroupings();
     }
 }
@@ -143,6 +146,14 @@ function addToolsStorage() {
     $('.dropzone').each(function(i, obj) {
         $(obj).data('toolsContained', new Array());
     });
+}
+
+function savePositions() {
+    $('.draggable').each(function(i, obj) {
+        var tool = $(obj).attr('data-name');
+        // undefined if object is never clicked
+        console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
+    }); 
 }
 
 function saveGroupings() {
@@ -172,12 +183,6 @@ function saveGroupings() {
         console.log(binScore);
         totalScore += binScore;
     }); 
-    $('.draggable').each(function(i, obj) {
-        var tool = $(obj).attr('data-name');
-        // undefined if object is never clicked
-        console.log(images[tool][0] + ": " + $(obj).attr('data-x') + ', ' + $(obj).attr('data-y'));
-    }); 
-
     alert("Your score: " + totalScore);
 }
 
@@ -203,8 +208,8 @@ var images = {
 var numTools;
 var topZIndex;
 function drawTools() {
-    // numTools = Math.floor(Math.random() * 10) + 10;
-    numTools = 20;
+    numTools = Math.floor(Math.random() * 10) + 10;
+    numTools = 1;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
