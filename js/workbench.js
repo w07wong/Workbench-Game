@@ -1,6 +1,9 @@
 // For snapping
 var startPos = null;
 
+var PLAYER = null;
+var AGE = null;
+
 interact('.draggable')
     .draggable({
         snap: {
@@ -208,8 +211,8 @@ var images = {
 var numTools;
 var topZIndex;
 function drawTools() {
-    numTools = Math.floor(Math.random() * 10) + 10;
-    numTools = 1;
+    // numTools = Math.floor(Math.random() * 10) + 10;
+    numTools = 20;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
@@ -243,4 +246,19 @@ function drawTools() {
 
 function moveToFront(deg) {
     $(this).css('z-index', topZIndex++);
+}
+
+function promptUser() {
+    promptName();
+    promptAge();
+}
+
+function promptName() {
+    var person = prompt("Please enter your name:", "");
+    PLAYER = person;
+}
+
+function promptAge() {
+    var age = prompt("Please enter your age:", "");
+    AGE = age;
 }
