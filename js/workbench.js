@@ -81,14 +81,14 @@ interact('.dropzone').dropzone({
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
         draggableElement.classList.add('can-drop');
-        draggableElement.textContent = 'Dragged in';
+        // draggableElement.textContent = 'Dragged in';
     },
     ondragleave: function (event) {
         // remove the drop feedback style
         event.target.classList.remove('drop-target');
         event.relatedTarget.classList.remove('can-drop');
         event.relatedTarget.classList.remove('dropped');
-        event.relatedTarget.textContent = 'Dragged out';
+        // event.relatedTarget.textContent = 'Dragged out';
 
         // Remove snapping
         event.draggable.draggable({
@@ -104,7 +104,7 @@ interact('.dropzone').dropzone({
     },
     ondrop: function (event) {
         event.relatedTarget.classList.add('dropped');
-        event.relatedTarget.textContent = 'Dropped';
+        // event.relatedTarget.textContent = 'Dropped';
         var toolName = event.relatedTarget.getAttribute('data-name');
         $(event.target).data('toolsContained').push(toolName);
         // Store tool index
