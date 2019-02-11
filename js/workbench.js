@@ -146,7 +146,7 @@ interact('.dropzone').dropzone({
 });
 
 var timerInterval = null;
-var seconds = 2; 
+var seconds = 60; 
 function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
