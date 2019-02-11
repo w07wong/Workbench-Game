@@ -28,9 +28,9 @@ body {
     width: 80%;
     transition: background-color 0.3s;
     color: #fff;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 .left-bin {
