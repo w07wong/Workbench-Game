@@ -6,6 +6,7 @@ var AGE = null;
 var FEEDBACK = null;
 
 var dataToSave = {};
+dataToSave.state = {};
 
 var images = {
     "1": ["angle-grinder", "cutting-tool"],
@@ -145,7 +146,7 @@ interact('.dropzone').dropzone({
 });
 
 var timerInterval = null;
-var seconds = 60; 
+var seconds = 2; 
 function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
@@ -153,8 +154,9 @@ function timer(timerDisplay) {
         savePositions("state" + seconds);
     } else {
         clearInterval(timerInterval);
-        savePositions();
+        savePositions("state" + seconds);
         saveGroupings();
+        saveTools();
         promptFeedback();
         sendToDB();
     }
@@ -175,13 +177,22 @@ function addToolsStorage() {
 }
 
 function savePositions(state) {
-    dataToSave[state]= {};
+    dataToSave.state[state]= {};
     $('.draggable').each(function(i, obj) {
         var tool = $(obj).attr('data-name');
         var id = $(obj).attr('data-object-id'); 
         // undefined if object is never clicked 
         // console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
-        dataToSave[state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
+        dataToSave.state[state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
+    }); 
+}
+
+function saveTools() {
+    dataToSave.tools = {};
+    $('.draggable').each(function(i, obj) {
+        var tool = $(obj).attr('data-name');
+        var id = $(obj).attr('data-object-id');
+        dataToSave.tools[images[tool][0] + "_" + id] = [$(obj).attr('data-rotate'), $(obj).attr('data-blur')];
     }); 
 }
 
@@ -288,5 +299,13 @@ function promptFeedback() {
 }
 
 function sendToDB() {
-
+   var req = new XMLHttpRequest();
+   req.open('POST', 'https://workbench-game.herokuapp.com/api/game', true);
+   req.setRequestHeader('Content-Type', 'application/json');
+   req.onreadystatechange = () => {
+       if (this.status === 400){
+           console.log(req.responseText);
+       }
+   }
+   req.send(JSON.stringify(dataToSave));
 }
