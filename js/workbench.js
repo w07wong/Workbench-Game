@@ -235,7 +235,7 @@ var numTools;
 var topZIndex;
 function drawTools() {
     // numTools = Math.floor(Math.random() * 10) + 10;
-    numTools = 20;
+    numTools = 2;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
