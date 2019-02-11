@@ -20,19 +20,19 @@ interact('.draggable')
                 right: 1
             }
         },
-        onstart: function (event) {
-            var rect = interact.getElementRect(event.target);
-            // record center point when starting the very first a drag
-            startPos = {
-                x: rect.left + rect.width  / 2,
-                y: rect.top  + rect.height / 2
-            }
-            event.interactable.draggable({
-                snap: {
-                    targets: [startPos]
-                }
-            });
-        },
+        // onstart: function (event) {
+        //     var rect = interact.getElementRect(event.target);
+        //     // record center point when starting the very first a drag
+        //     startPos = {
+        //         x: rect.left + rect.width  / 2,
+        //         y: rect.top  + rect.height / 2
+        //     }
+        //     event.interactable.draggable({
+        //         snap: {
+        //             targets: [startPos]
+        //         }
+        //     });
+        // },
         onmove: dragMoveListener,
     });
 
@@ -66,17 +66,17 @@ interact('.dropzone').dropzone({
     ondragenter: function (event) {
         var draggableElement = event.relatedTarget,
             dropzoneElement = event.target,
-            dropRect = interact.getElementRect(dropzoneElement),
-            dropCenter = {
-              x: dropRect.left + dropRect.width  / 2,
-              y: dropRect.top  + dropRect.height / 2
-            };
+            dropRect = interact.getElementRect(dropzoneElement);
+            // dropCenter = {
+            //   x: dropRect.left + dropRect.width  / 2,
+            //   y: dropRect.top  + dropRect.height / 2
+            // };
 
-        event.draggable.draggable({
-            snap: {
-                targets: [dropCenter]
-            }
-        });
+        // event.draggable.draggable({
+        //     snap: {
+        //         targets: [dropCenter]
+        //     }
+        // });
 
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
@@ -118,7 +118,7 @@ interact('.dropzone').dropzone({
 });
 
 var timerInterval = null;
-var seconds = 5; 
+var seconds = 60; 
 function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
@@ -203,7 +203,8 @@ var images = {
 var numTools;
 var topZIndex;
 function drawTools() {
-    numTools = Math.floor(Math.random() * 10) + 10;
+    // numTools = Math.floor(Math.random() * 10) + 10;
+    numTools = 20;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
