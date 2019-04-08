@@ -26,11 +26,12 @@ body {
     position: relative;
 }
 
-.left-bin, .middle-bin, .right-bin p {
+.left-bin p, .middle-bin p, .right-bin p {
     color: #fff;
     font-size: 40px;
     text-align: center;
     text-shadow: -2px 0 rgb(0, 153, 255), 0 2px rgb(0, 153, 255), 2px 0 rgb(0, 153, 255), 0 -2px rgb(0, 153, 255);
+    margin-top: -40px;
 }
 
 .dropzone {
@@ -66,19 +67,23 @@ body {
     width: 300px;
     float: left;
     clear: left;
+    margin-top: -40px;
 }
 
 .middle-bin {
     height: 500px;
     width: 300px;
     margin: auto;
+    margin-top: -40px;
+
 }
 
 .right-bin {
     height: 500px;
     width: 300px;
     float: right;
-    /* clear: right; */
+    clear: right;
+    margin-top: -40px;
 }
 
 .drop-active {

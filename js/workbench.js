@@ -13,22 +13,46 @@ dataToSave.state = [{}];
 localStorage.removeItem('gameHistory');
 
 var images = {
-    "1": ["angle-grinder", "cutting-tool"],
-    "2": ["battery", "power-tool"],
-    "3": ["circular-saw", "cutting-tool"],
-    "4": ["drill", "drilling-tool"],
-    "5": ["hammer-drill", "drilling-tool"],
-    "6": ["hammer", "hand-tool"],
-    "7": ["hand-saw", "cutting-tool"],
-    "8": ["impact-driver", "drilling-tool"],
-    "9": ["jigsaw", "cutting-tool"],
-    "10": ["orbital-sander", "power-tool"],
-    "11": ["reciprocating-saw", "cutting-tool"],
-    "12": ["right-angle-drill", "drilling-tool"],
-    "13": ["side-cutter", "cutting-tool"],
-    "14": ["snips", "cutting-tool"],
-    "15": ["utility-knife", "cutting-tool"],
-    "16": ["wrench", "hand-tool"],
+    "1": ["box1", "box"],
+    "2": ["box2", "box"],
+    "3": ["box3", "box"],
+    "4": ["box4", "box"],
+    "5": ["box5", "box"],
+    "6": ["box6", "box"],
+    "7": ["box7", "box"],
+    "8": ["box8", "box"],
+    "9": ["print1", "scrap"],
+    "10": ["print2", "scrap"],
+    "11": ["print3", "scrap"],
+    "12": ["print4", "scrap"],
+    "13": ["print5", "scrap"],
+    "14": ["print6", "scrap"],
+    "15": ["print7", "scrap"],
+    "16": ["print8", "scrap"],
+    "17": ["scrap1", "scrap"],
+    "18": ["scrap2", "scrap"],
+    "19": ["scrap3", "scrap"],
+    "20": ["scrap4", "scrap"],
+    "21": ["scrap5", "scrap"],
+    "22": ["scrap6", "scrap"],
+    "23": ["scrap7", "scrap"],
+    "24": ["scrap8", "scrap"],
+    "25": ["tool1", "tool"],
+    "26": ["tool2", "tool"],
+    "27": ["tool3", "tool"],
+    "28": ["tool4", "tool"],
+    "29": ["tool5", "tool"],
+    "30": ["tool6", "tool"],
+    "31": ["tool7", "tool"],
+    "32": ["tool8", "tool"],
+    "33": ["tube1", "tube"],
+    "34": ["tube2", "tube"],
+    "35": ["tube3", "tube"],
+    "36": ["tube4", "tube"],
+    "37": ["tube5", "tube"],
+    "38": ["tube6", "tube"],
+    "39": ["tube7", "tube"],
+    "40": ["tube8", "tube"],
 };
 
 interact('.draggable')
@@ -253,12 +277,12 @@ function drawTools() {
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
-        var blur = Math.floor(Math.random() * 7);
+        var blur = Math.floor(Math.random() * 5);
 
         var img = document.createElement("img");
         img.setAttribute("src", "./images/" + tool + ".png");
-        img.setAttribute("height", "150");
-        img.setAttribute("width", "150");
+        // img.setAttribute("height", "150");
+        // img.setAttribute("width", "150");
         img.setAttribute("style", "transform:rotate(" + deg + "deg);" +
             "filter:blur(" + blur + "px)");
 
@@ -276,7 +300,7 @@ function drawTools() {
         var y = Math.floor(Math.random() * (window.innerHeight / 2)) + window.innerHeight / 5;
         div.style.position = "absolute";
         div.style.left = x + "px";
-        div.style.top = y + "px";
+        div.style.top = y - 100 + "px";
 
         $(div).prepend(img);
 
