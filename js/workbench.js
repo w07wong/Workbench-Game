@@ -1,12 +1,16 @@
 // For snapping
 var startPos = null;
 
+var GAMELENGTH = 60;
+
 var PLAYER = null;
 var AGE = null;
 var FEEDBACK = null;
 
 var dataToSave = {};
-dataToSave.state = {};
+dataToSave.state = [{}];
+
+localStorage.removeItem('gameHistory');
 
 var images = {
     "1": ["angle-grinder", "cutting-tool"],
@@ -32,7 +36,10 @@ interact('.draggable')
         snap: {
             targets: [startPos],
             range: Infinity,
-            relativePoints: [ {x: 0.5, y: 0.5 } ],
+            relativePoints: [{
+                x: 0.5,
+                y: 0.5
+            }],
             endOnly: true
         },
         inertia: false,
@@ -95,10 +102,10 @@ interact('.dropzone').dropzone({
         var draggableElement = event.relatedTarget,
             dropzoneElement = event.target,
             dropRect = interact.getElementRect(dropzoneElement);
-            // dropCenter = {
-            //   x: dropRect.left + dropRect.width  / 2,
-            //   y: dropRect.top  + dropRect.height / 2
-            // };
+        // dropCenter = {
+        //   x: dropRect.left + dropRect.width  / 2,
+        //   y: dropRect.top  + dropRect.height / 2
+        // };
 
         // event.draggable.draggable({
         //     snap: {
@@ -146,19 +153,15 @@ interact('.dropzone').dropzone({
 });
 
 var timerInterval = null;
-var seconds = 60; 
+var seconds = GAMELENGTH;
+
 function timer(timerDisplay) {
     if (seconds >= 0) {
         timerDisplay.innerText = seconds;
         seconds--;
         savePositions("state" + seconds);
     } else {
-        clearInterval(timerInterval);
-        savePositions("state" + seconds);
-        saveGroupings();
-        saveTools();
-        promptFeedback();
-        sendToDB();
+        saveGameToLocal(dataToSave, endGameFunctions);
     }
 }
 
@@ -167,40 +170,42 @@ function startTimer() {
     addToolsStorage();
     // document.getElementById('startButton').hidden = true;
     var timerDisplay = document.getElementById('timer');
-    timerInterval = setInterval(function() {timer(timerDisplay)}, 1000);
+    timerInterval = setInterval(function () {
+        timer(timerDisplay)
+    }, 1000);
 }
 
 function addToolsStorage() {
-    $('.dropzone').each(function(i, obj) {
+    $('.dropzone').each(function (i, obj) {
         $(obj).data('toolsContained', new Array());
     });
 }
 
 function savePositions(state) {
-    dataToSave.state[state]= {};
-    $('.draggable').each(function(i, obj) {
+    dataToSave.state[0][state] = {};
+    $('.draggable').each(function (i, obj) {
         var tool = $(obj).attr('data-name');
-        var id = $(obj).attr('data-object-id'); 
+        var id = $(obj).attr('data-object-id');
         // undefined if object is never clicked 
         // console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
-        dataToSave.state[state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
-    }); 
+        dataToSave.state[0][state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
+    });
 }
 
 function saveTools() {
-    dataToSave.tools = {};
-    $('.draggable').each(function(i, obj) {
+    dataToSave.tools = [{}];
+    $('.draggable').each(function (i, obj) {
         var tool = $(obj).attr('data-name');
         var id = $(obj).attr('data-object-id');
-        dataToSave.tools[images[tool][0] + "_" + id] = [$(obj).attr('data-rotate'), $(obj).attr('data-blur')];
-    }); 
+        dataToSave.tools[0][images[tool][0] + "_" + id] = [$(obj).attr('data-rotate'), $(obj).attr('data-blur')];
+    });
 }
 
 function saveGroupings() {
     var totalScore = 0;
-    $('.dropzone').each(function(i, obj) {
+    $('.dropzone').each(function (i, obj) {
         var toolsContained = $(obj).data('toolsContained');
-        
+
         dataToSave["bin" + i] = [];
 
         var cutting = 0;
@@ -216,62 +221,86 @@ function saveGroupings() {
             dataToSave["bin" + i].push(toolName);
             // console.log(toolName);
 
-            switch(toolCategory) {
-                case "cutting-tool": cutting++;
-                case "power-tool": power++;
-                case "drilling-tool": drilling++;
-                case "hand-tool": hand++;
-                default: break;
+            switch (toolCategory) {
+                case "cutting-tool":
+                    cutting++;
+                case "power-tool":
+                    power++;
+                case "drilling-tool":
+                    drilling++;
+                case "hand-tool":
+                    hand++;
+                default:
+                    break;
             }
         }
         var binScore = parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2));
         console.log(binScore);
         totalScore += binScore;
-    }); 
+    });
     alert("Times Up! \nYour score: " + totalScore);
 }
 
 var numTools;
 var topZIndex;
+
 function drawTools() {
     // numTools = Math.floor(Math.random() * 10) + 10;
-    numTools = 20;
+    numTools = 30;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
-        var blur = Math.floor(Math.random() * 10);
-        // console.log(deg);
+        var blur = Math.floor(Math.random() * 7);
 
         var img = document.createElement("img");
         img.setAttribute("src", "./images/" + tool + ".png");
         img.setAttribute("height", "150");
         img.setAttribute("width", "150");
         img.setAttribute("style", "transform:rotate(" + deg + "deg);" +
-                                  "filter:blur(" + blur + "px)");
+            "filter:blur(" + blur + "px)");
 
         var div = document.createElement('div');
         div.setAttribute("class", "draggable");
         div.setAttribute("data-name", tool);
         div.setAttribute("height", "100%");
-        div.setAttribute("width", "100%");
+        div.setAttribute("width", "150px");
         div.setAttribute("data-rotate", deg);
         div.setAttribute("data-blur", blur);
         div.setAttribute("data-object-id", i);
+
+        // Random x, y pos
+        var x = Math.floor(Math.random() * (window.innerWidth / 2)) + window.innerWidth / 5;
+        var y = Math.floor(Math.random() * (window.innerHeight / 2)) + window.innerHeight / 5;
+        div.style.position = "absolute";
+        div.style.left = x + "px";
+        div.style.top = y + "px";
 
         $(div).prepend(img);
 
         div.addEventListener('mousedown', moveToFront);
 
         workbench.appendChild(div);
-        // add event listener
     }
+    // Save the tool rotation & blur
+    saveTools();
 }
 
 function moveToFront(deg) {
     $(this).css('z-index', topZIndex++);
+}
+
+jQuery(document).ready(checkContainer);
+
+function checkContainer() {
+    if ($('#workbench').is(':visible')) { //if the container is visible on the page
+        promptUser();
+        // startTimer();
+    } else {
+        setTimeout(checkContainer, 50); //wait 50 ms, then try again
+    }
 }
 
 function promptUser() {
@@ -299,14 +328,118 @@ function promptFeedback() {
     dataToSave.feedback = FEEDBACK;
 }
 
+function saveGameToLocal(game, callback) {
+    // Save game to local storage to reduce requests to backend
+    var gameHistory = JSON.parse(localStorage.getItem('gameHistory'));
+    if (gameHistory == null) {
+        gameHistory = []
+    }
+    gameHistory.push(dataToSave);
+    localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
+    callback();
+}
+
+function endGameFunctions() {
+    // End timer
+    clearInterval(timerInterval);
+    // Save final positions
+    savePositions("state" + seconds);
+    // Save contents for each bin
+    saveGroupings();
+    // Ask user how they grouped tools
+    promptFeedback();
+    // Save game data to database
+    sendToDB();
+    // Run classifier with gameplay
+    svmClassify();
+}
+
 function sendToDB() {
-   var req = new XMLHttpRequest();
-   req.open('POST', 'https://workbench-game.herokuapp.com/api/game', true);
-   req.setRequestHeader('Content-Type', 'application/json');
-   req.onreadystatechange = () => {
-       if (this.status === 400){
-           console.log(req.responseText);
-       }
-   }
-   req.send(JSON.stringify(dataToSave));
+    var req = new XMLHttpRequest();
+    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    req.open('POST', 'http://127.0.0.1:5000/api/game', true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.onreadystatechange = () => {
+        if (this.status === 400) {
+            console.log(req.responseText);
+        }
+    }
+    req.send(JSON.stringify(dataToSave));
+}
+
+function svmClassify() {
+    var req = new XMLHttpRequest();
+    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
+    req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.onloadend = () => {
+        console.log(req.responseText);
+        showRobotResults(JSON.parse(req.responseText));
+    }
+    var gameHistory = localStorage.getItem('gameHistory');
+    // gameHistory = "[" + gameHistory + "]";
+    console.log(gameHistory);
+    req.send(gameHistory);
+}
+
+function showRobotResults(results) {
+    var modal = document.getElementById('popup');
+    modal.style.display = "block";
+    document.getElementById("popup-accuracy").innerHTML = "Accuracy: " + results["accuracy"];
+
+    document.getElementById("classify-table").innerHTML = "";
+
+    for (key in results) {
+        if (key !== "accuracy") {
+            var row = "";
+
+            row += "<tr>";
+            row += "<td>" + key + "</td>";
+
+            var classifications = "<td>";
+
+            for (var i = 0; i < results[key].length; i++) {
+                var t = results[key][i];
+                var s = "";
+                if (t[1]) {
+                    s = "<span style=\"color:green;\">" + t[0] + "</span>";
+                } else {
+                    s = "<span style=\"color:red;\">" + t[0] + "</span>";
+                }
+                if (i !== results[key].length - 1) {
+                    s += ", ";
+                }
+                classifications += s;
+            }
+
+            classifications += "</td>";
+
+            row += classifications;
+            document.getElementById("classify-table").innerHTML += row;
+        }
+    }
+}
+
+function closePopup() {
+    var modal = document.getElementById('popup');
+    modal.style.display = "none";
+    
+    // Play again?
+    var playAgain = confirm("Play again?");
+    if (playAgain !== true) {
+        localStorage.removeItem('gameHistory');
+    } else {
+        // Remove old tools
+        $(".draggable").remove();
+        
+
+        alert("Organize the workbench in the next 60 seconds!");
+        timerInterval = null;
+        seconds = GAMELENGTH;
+        startTimer();
+    }
+}
+
+function showBeforeBlur() {
+
 }

@@ -6,7 +6,7 @@
     <title>Workbench Decluttering</title>
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>   
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
@@ -18,18 +18,50 @@
     <script src="js/workbench.js"></script>
 </head>
 
-<body onload="promptUser()">
+<body>
     <div id="workbench">
+        <div class="left-bin">
+            <div class="dropzone"></div>
+            <p>Tools</p>
+        </div>
+        <!-- <div class="middle-bin">
+            <div class="dropzone"></div>
+            <p>Tubes</p>
+        </div> -->
+        <div class="right-bin">
+            <div class="dropzone"></div>
+            <p>Boxes</p>
+        </div>
+        <div class="left-bin">
+            <div class="dropzone"></div>
+            <p>Scrap</p>
+        </div>
+        <div class="right-bin">
+            <div class="dropzone"></div>
+            <p>Tubes</p>
+        </div>
+        
         <div style="width: 100%; text-align: center;    ">
             <p id="timer">60</p>
         </div>
-        <!-- <button id="startButton" type="button" onclick="startTimer()">Start!</button> -->
+    </div>
 
-        <div class="dropzone left-bin">Scrap</div>
-        <div class="dropzone right-bin">Cutting Tools</div>
-        
-        <div class="dropzone left-bin">Drilling Tools</div>
-        <div class="dropzone right-bin">Power Tools</div>
+    <div id="popup" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <p id="popup-accuracy"></p>
+            <table id="results-table" class="table borderless">
+                <thead>
+                    <tr>
+                        <th>Tool Category</th>
+                        <th>Tools Classified</th>
+                    </tr>
+                </thead>
+                <tbody id="classify-table">
+                    <!-- Generate rows here -->
+                </tbody>
+            </table>
+        </div>
 
     </div>
 </body>
