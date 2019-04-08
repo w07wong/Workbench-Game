@@ -278,7 +278,7 @@ function drawTools() {
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
-        var blur = Math.floor(Math.random() * 5);
+        var blur = Math.floor(Math.random() * 4);
 
         var img = document.createElement("img");
         img.setAttribute("src", "./images/" + tool + ".png");
@@ -410,7 +410,7 @@ function svmClassify() {
 function showRobotResults(results) {
     var modal = document.getElementById('popup');
     modal.style.display = "block";
-    document.getElementById("popup-accuracy").innerHTML = "Previous Run Classifier's Accuracy: " + results["accuracy"];
+    document.getElementById("popup-accuracy").innerHTML = "Previous Run's Classifier Accuracy: " + results["accuracy"];
 
     document.getElementById("classify-table").innerHTML = "";
 
