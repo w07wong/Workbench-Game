@@ -2,6 +2,7 @@
 var startPos = null;
 
 var GAMELENGTH = 60;
+var NUMBEROFTOOLS = 30
 
 var PLAYER = null;
 var AGE = null;
@@ -232,10 +233,10 @@ function saveGroupings() {
 
         dataToSave["bin" + i] = [];
 
-        var cutting = 0;
-        var power = 0;
-        var drilling = 0;
-        var hand = 0;
+        var tool = 0;
+        var scrap = 0;
+        var box = 0;
+        var tube = 0;
 
         for (var j = 0; j < toolsContained.length; j++) {
             var tool = toolsContained[j];
@@ -246,19 +247,19 @@ function saveGroupings() {
             // console.log(toolName);
 
             switch (toolCategory) {
-                case "cutting-tool":
-                    cutting++;
-                case "power-tool":
-                    power++;
-                case "drilling-tool":
-                    drilling++;
-                case "hand-tool":
-                    hand++;
+                case "tool":
+                    tool++;
+                case "scrap":
+                    scrap++;
+                case "box":
+                    box++;
+                case "tube":
+                    tube++;
                 default:
                     break;
             }
         }
-        var binScore = parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2)) + parseInt((cutting / 2));
+        var binScore = parseInt((tool / 2)) + parseInt((scrap / 2)) + parseInt((box / 2)) + parseInt((tube / 2));
         console.log(binScore);
         totalScore += binScore;
     });
@@ -270,7 +271,7 @@ var topZIndex;
 
 function drawTools() {
     // numTools = Math.floor(Math.random() * 10) + 10;
-    numTools = 30;
+    numTools = NUMBEROFTOOLS;
     topZIndex = numTools + 1;
     for (i = 0; i < numTools; i++) {
         var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
@@ -380,8 +381,8 @@ function endGameFunctions() {
 
 function sendToDB() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/game', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/game', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onreadystatechange = () => {
         if (this.status === 400) {
@@ -393,8 +394,8 @@ function sendToDB() {
 
 function svmClassify() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
         console.log(req.responseText);
@@ -409,7 +410,7 @@ function svmClassify() {
 function showRobotResults(results) {
     var modal = document.getElementById('popup');
     modal.style.display = "block";
-    document.getElementById("popup-accuracy").innerHTML = "Accuracy: " + results["accuracy"];
+    document.getElementById("popup-accuracy").innerHTML = "Previous Run Classifier's Accuracy: " + results["accuracy"];
 
     document.getElementById("classify-table").innerHTML = "";
 
