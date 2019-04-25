@@ -20,6 +20,7 @@ body {
     flex: 1;
     overflow: auto;
     padding-top: 10px;
+    /* cursor: url("../images/gripper.png") pointer; */
 }
 
 .draggable {
@@ -39,25 +40,31 @@ body {
     border-radius: 4px;
     margin: 10px auto 30px;
     padding: 10px;
-    height: 400px;
+    height: 350px;
     width: 300px;
     transition: background-color 0.3s;
 }
 
+.bin .dropzone {
+    background-image: url('../images/bin.png');
+    background-size: contain;
+    background-repeat: no-repeat;  
+}
+
 .left-bin .dropzone {
-    background-image: url('../images/left-bin.png');
+    background-image: url('../images/bin.png');
     background-size: contain;
     background-repeat: no-repeat;  
 }
 
 .middle-bin .dropzone {
-    background-image: url('../images/left-bin.png');
+    background-image: url('../images/bin.png');
     background-size: contain;
     background-repeat: no-repeat;  
 }
 
 .right-bin .dropzone {
-    background-image: url('../images/right-bin.png');
+    background-image: url('../images/bin.png');
     background-size: contain;
     background-repeat: no-repeat;  
 }
@@ -87,13 +94,22 @@ body {
 }
 
 .drop-active {
-    border-color: #aaa;
+    /* border-color: #aaa; */
 }
 
 .drop-target {
-    background-color: #29e;
+    /* background-color: #29e;
     border-color: #fff;
-    border-style: solid;
+    border-style: solid; */
+    -webkit-filter: drop-shadow(4px 4px 0 rgb(0, 153, 255))
+                    drop-shadow(-4px 4px 0 rgb(0, 153, 255))
+                    drop-shadow(4px -4px 0 rgb(0, 153, 255))
+                    drop-shadow(-4px -4px 0 rgb(0, 153, 255));
+
+    filter: drop-shadow(4px 4px 0 rgb(0, 153, 255)) 
+            drop-shadow(-4px 4px 0 rgb(0, 153, 255))
+            drop-shadow(4px -4px 0 rgb(0, 153, 255))
+            drop-shadow(-4px -4px 0 rgb(0, 153, 255));
 }
 
 .draggable {

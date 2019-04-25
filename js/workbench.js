@@ -2,7 +2,7 @@
 var startPos = null;
 
 var GAMELENGTH = 60;
-var NUMBEROFTOOLS = 30
+var NUMBEROFTOOLS = 20
 
 var PLAYER = null;
 var AGE = null;
@@ -278,20 +278,18 @@ function drawTools() {
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
-        var blur = Math.floor(Math.random() * 4);
+        var blur = Math.floor(Math.random() * 2);
 
         var img = document.createElement("img");
         img.setAttribute("src", "./images/" + tool + ".png");
-        // img.setAttribute("height", "150");
-        // img.setAttribute("width", "150");
-        img.setAttribute("style", "transform:rotate(" + deg + "deg);" +
-            "filter:blur(" + blur + "px)");
+        img.setAttribute("height", "60%");
+        img.setAttribute("width", "60%");
+        img.setAttribute("style", "transform:rotate(" + deg + "deg);" + "filter: blur(" + blur + "px) brightness(150%)");
+        // img.setAttribute("filter", "brightness(200%)");
 
         var div = document.createElement('div');
         div.setAttribute("class", "draggable");
         div.setAttribute("data-name", tool);
-        div.setAttribute("height", "100%");
-        div.setAttribute("width", "150px");
         div.setAttribute("data-rotate", deg);
         div.setAttribute("data-blur", blur);
         div.setAttribute("data-object-id", i);
@@ -329,9 +327,15 @@ function checkContainer() {
 }
 
 function promptUser() {
-    promptName();
-    promptAge();
-    startTimer();
+    // promptName();
+    // promptAge();
+    // startTimer();
+    var modal = document.getElementById('popup');
+    modal.style.display = "block";
+    document.getElementById("popup-form").display = "block";
+    document.getElementById("popup-form").innerHTML = "";
+    document.getElementById("popup-accuracy").display = "hidden";
+    document.getElementById("popup-table").innerHTML = "";
 }
 
 function promptName() {
@@ -381,8 +385,8 @@ function endGameFunctions() {
 
 function sendToDB() {
     var req = new XMLHttpRequest();
-    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
-    // req.open('POST', 'http://127.0.0.1:5000/api/game', true);
+    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    req.open('POST', 'http://127.0.0.1:5000/api/game', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onreadystatechange = () => {
         if (this.status === 400) {
@@ -394,8 +398,8 @@ function sendToDB() {
 
 function svmClassify() {
     var req = new XMLHttpRequest();
-    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
-    // req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
+    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
+    req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
         console.log(req.responseText);
@@ -410,8 +414,10 @@ function svmClassify() {
 function showRobotResults(results) {
     var modal = document.getElementById('popup');
     modal.style.display = "block";
+    document.getElementById("popup-form").display = "hidden";
+    document.getElementById("popup-accuracy").display = "block";
+    document.getElementById("classify-table").display="block";
     document.getElementById("popup-accuracy").innerHTML = "Previous Run's Classifier Accuracy: " + results["accuracy"];
-
     document.getElementById("classify-table").innerHTML = "";
 
     for (key in results) {
