@@ -191,9 +191,6 @@ function timer(timerDisplay) {
 }
 
 function startTimer() {
-    drawTools();
-    addToolsStorage();
-    // document.getElementById('startButton').hidden = true;
     var timerDisplay = document.getElementById('timer');
     timerInterval = setInterval(function () {
         timer(timerDisplay)
@@ -284,7 +281,7 @@ function drawTools() {
         img.setAttribute("src", "./images/" + tool + ".png");
         img.setAttribute("height", "60%");
         img.setAttribute("width", "60%");
-        img.setAttribute("style", "transform:rotate(" + deg + "deg);" + "filter: blur(" + blur + "px) brightness(150%)");
+        img.setAttribute("style", "transform:rotate(" + deg + "deg);" + "filter: blur(" + blur + "px) brightness(125%)");
         // img.setAttribute("filter", "brightness(200%)");
 
         var div = document.createElement('div');
@@ -295,8 +292,8 @@ function drawTools() {
         div.setAttribute("data-object-id", i);
 
         // Random x, y pos
-        var x = Math.floor(Math.random() * (window.innerWidth / 2)) + window.innerWidth / 5;
-        var y = Math.floor(Math.random() * (window.innerHeight / 2)) + window.innerHeight / 5;
+        var x = Math.floor(Math.random() * (window.innerWidth * 0.9)) + (window.innerWidth * 0.05);
+        var y = Math.floor(Math.random() * (window.innerHeight * 0.3)) + (window.innerHeight * 0.6);
         div.style.position = "absolute";
         div.style.left = x + "px";
         div.style.top = y - 100 + "px";
@@ -319,36 +316,20 @@ jQuery(document).ready(checkContainer);
 
 function checkContainer() {
     if ($('#workbench').is(':visible')) { //if the container is visible on the page
-        promptUser();
-        // startTimer();
+        dataToSave.player = localStorage.getItem('playerName');
+        dataToSave.age = localStorage.getItem('playerAge');
+        drawTools();
+        addToolsStorage();
     } else {
         setTimeout(checkContainer, 50); //wait 50 ms, then try again
     }
 }
 
-function promptUser() {
-    // promptName();
-    // promptAge();
-    // startTimer();
-    var modal = document.getElementById('popup');
-    modal.style.display = "block";
-    document.getElementById("popup-form").display = "block";
-    document.getElementById("popup-form").innerHTML = "";
-    document.getElementById("popup-accuracy").display = "hidden";
-    document.getElementById("popup-table").innerHTML = "";
-}
-
-function promptName() {
-    var person = prompt("Please enter your name:", "");
-    PLAYER = person;
-    dataToSave.player = PLAYER;
-}
-
-function promptAge() {
-    var age = prompt("Please enter your age:", "");
-    AGE = age;
-    dataToSave.age = AGE;
-    alert("Organize the workbench in the next 60 seconds!");
+function startGame() {
+    $(".section").fadeOut(800);
+    setTimeout(function () {
+        startTimer();
+    }, 500);
 }
 
 function promptFeedback() {

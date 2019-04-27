@@ -1,25 +1,95 @@
 html, body {
     height: 100%;
+    font-family: 'Righteous', cursive;
+    margin: 0;
 }
 
 body {
-    background-color:#568eb9;
-    background-image: linear-gradient(rgba(255,255,255,.3) 2px, transparent 2px),
-    linear-gradient(90deg, rgba(255,255,255,.3) 2px, transparent 2px),
-    linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px);
-    background-size:100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
     display: flex;
-    margin: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.section {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.intro {
+    text-align: center;
+    background: rgba(255, 255, 255, 1);
+    padding: 20px;
+    margin: 15px;
+    z-index: 2000;
+    width: 60%;
+    border-radius: 50px;
+}
+
+.intro h1 {
+    font-size: 2.5rem;
+    color: #3B72F3;
+}
+
+.intro button {
+    background-color: #FF6C11;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50px;
+    font-family: 'Righteous', cursive;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+#fade-cover {
+    position: absolute;
+    top: 0px;
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    animation-name: fadeIn;
+    animation-duration: 0.8s;
+    animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
 }
 
 #workbench {
     background-image: url("../images/workbench.jpg");
     background-size: cover;
+    display: flex;
+    flex-direction: row;
     flex: 1;
+    justify-content: space-evenly;
     overflow: auto;
     padding-top: 10px;
+    width: 100%;
     /* cursor: url("../images/gripper.png") pointer; */
 }
 
@@ -27,12 +97,11 @@ body {
     position: relative;
 }
 
-.left-bin p, .middle-bin p, .right-bin p {
+.bin p {
     color: #fff;
     font-size: 40px;
     text-align: center;
-    text-shadow: -2px 0 rgb(0, 153, 255), 0 2px rgb(0, 153, 255), 2px 0 rgb(0, 153, 255), 0 -2px rgb(0, 153, 255);
-    margin-top: -40px;
+    margin-top: -50px;
 }
 
 .dropzone {
@@ -40,8 +109,8 @@ body {
     border-radius: 4px;
     margin: 10px auto 30px;
     padding: 10px;
-    height: 350px;
-    width: 300px;
+    height: 300px;
+    width: 260px;
     transition: background-color 0.3s;
 }
 
@@ -101,15 +170,15 @@ body {
     /* background-color: #29e;
     border-color: #fff;
     border-style: solid; */
-    -webkit-filter: drop-shadow(4px 4px 0 rgb(0, 153, 255))
-                    drop-shadow(-4px 4px 0 rgb(0, 153, 255))
-                    drop-shadow(4px -4px 0 rgb(0, 153, 255))
-                    drop-shadow(-4px -4px 0 rgb(0, 153, 255));
+    -webkit-filter: drop-shadow(3px 3px 0 #fff)
+                    drop-shadow(-3px 3px 0 #fff)
+                    drop-shadow(3px -3px 0 #fff)
+                    drop-shadow(-3px -3px 0 #fff);
 
-    filter: drop-shadow(4px 4px 0 rgb(0, 153, 255)) 
-            drop-shadow(-4px 4px 0 rgb(0, 153, 255))
-            drop-shadow(4px -4px 0 rgb(0, 153, 255))
-            drop-shadow(-4px -4px 0 rgb(0, 153, 255));
+    filter: drop-shadow(3px 3px 0 #fff) 
+            drop-shadow(-3px 3px 0 #fff)
+            drop-shadow(3px -3px 0 #fff)
+            drop-shadow(-3px -3px 0 #fff);
 }
 
 .draggable {

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Workbench Decluttering</title>
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="js/jquery-3.1.0.js""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>   
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -16,31 +16,19 @@
     <script src="https://cdn.jsdelivr.net/npm/interactjs@1.3.4/dist/interact.min.js"></script>
     <!-- Main JS -->
     <script src="js/workbench.js"></script>
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 </head>
 
 <body>
-    <!-- <div id="workbench">
-        <div class="left-bin">
-            <div class="dropzone"></div>
-            <p>Tools</p>
+    <div id="fade-cover"></div>
+    <div class="section">
+        <div class="intro">
+            <h1>You have 60 seconds to organize the workbench!</h1>
+            <h1>Ready?</h1>
+            <button onclick="startGame()">GO!</button>
         </div>
-        <div class="right-bin">
-            <div class="dropzone"></div>
-            <p>Boxes</p>
-        </div>
-        <div class="left-bin">
-            <div class="dropzone"></div>
-            <p>Scrap</p>
-        </div>
-        <div class="right-bin">
-            <div class="dropzone"></div>
-            <p>Tubes</p>
-        </div>
-        
-        <div style="width: 100%; text-align: center;    ">
-            <p id="timer">60</p>
-        </div>
-    </div> -->
+    </div>
 
     <div id="workbench">
         <div class="bin">
@@ -49,19 +37,19 @@
         </div>
         <div class="bin">
             <div class="dropzone"></div>
-            <p>Tools</p>
+            <p>Boxes</p>
         </div>
         <div class="bin">
             <div class="dropzone"></div>
-            <p>Tools</p>
+            <p>Tubes</p>
         </div>
         <div class="bin">
             <div class="dropzone"></div>
-            <p>Tools</p>
+            <p>3D Prints</p>
         </div>
         <div class="bin">
             <div class="dropzone"></div>
-            <p>Tools</p>
+            <p>Scrap</p>
         </div>
     </div>
 

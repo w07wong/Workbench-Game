@@ -3,9 +3,7 @@
 
 <head>
     <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
+    <script src="js/jquery-3.1.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
         integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
     </script>
@@ -17,6 +15,9 @@
     </script>
     <!-- CSS -->
     <link rel="stylesheet" href="css/form.css">
+
+    <!-- JS -->
+    <script src="js/form.js"></script>
 
     <!-- FONT -->
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
@@ -35,16 +36,18 @@
                 <div class="form-group">
                     <label for="playerName">What's your name!</label>
                     <input type="text" class="form-control" id="playerName" aria-describedby="nameHelp"
-                        placeholder="Ex: Peter Parker">
+                        placeholder="Ex: Dakota">
                 </div>
                 <div class="form-group">
                     <label for="playerAge">How old are you?</label>
-                    <input type="number" class="form-control" id="playerAge" placeholder="Ex: 12">
+                    <input type="number" name="quantity" class="form-control" id="playerAge" placeholder="Ex: 12" min="1" max="150">
                 </div>
             </form>
-            <button onclick="location.href='bench.html'">PLAY!</button>
+            <button onclick="changePage()">PLAY!</button>
         </div>
     </div>
+
+    <div id="fade-cover"></div>
 </body>
 
 </html>
