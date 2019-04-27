@@ -192,8 +192,12 @@ function timer(timerDisplay) {
 
 function startTimer() {
     var timerDisplay = document.getElementById('timer');
+    var timerWidthDecrease = $("#timer-bar").width() / 60;
+
     timerInterval = setInterval(function () {
         timer(timerDisplay)
+        $("#timer-bar").width($("#timer-bar").width() - timerWidthDecrease);
+        $("#timer-bar").css("left", "+=" + timerWidthDecrease / 2);
     }, 1000);
 }
 
@@ -330,6 +334,25 @@ function startGame() {
     setTimeout(function () {
         startTimer();
     }, 500);
+}
+
+function quitGame() {
+    var top = $("#switch-top");
+    top.show();
+    top.animate({ top: "50vh"}, 800);
+
+    var bottom = $("#switch-bottom");
+    bottom.show();
+    bottom.animate({ top: "0vh", left: 0 }, 800);
+
+    var bar = $("#switch-bar");
+    bar.delay(800).fadeIn(100);
+    bar.delay(800).animate({ width: "20%", left: "40%" }, 800);
+
+
+    setTimeout(function () {
+        window.location.href = "index.html";
+    }, 2400);
 }
 
 function promptFeedback() {
