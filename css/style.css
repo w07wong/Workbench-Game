@@ -39,7 +39,7 @@ html, body {
 }
 
 .intro h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
     color: #fff;
 }
 
@@ -52,7 +52,7 @@ html, body {
 }
 
 .intro h2 {
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: #fff;
 }
 
@@ -341,4 +341,43 @@ html, body {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.leaderboard-intro {
+    text-align: center;
+    background: rgba(255, 255, 255, 1);
+    padding: 1vh;
+    z-index: 2;
+    width: 60%;
+    border-radius: 50px;
+    margin-top: -40px;
+}
+
+.leaderboard-intro h1 {
+    font-size: 1.75rem;
+    color: #fff;
+}
+
+.leaderboard-intro h2 {
+    font-size: 1rem;
+    color: #fff;
+}
+
+.leaderboard-intro button {
+    background-color: #FF6C11;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50px;
+    font-family: 'Righteous', cursive;
+}
+
+.leaderboard-intro p, a {
+    color: #fff;
 }
