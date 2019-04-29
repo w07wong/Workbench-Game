@@ -30,8 +30,8 @@ req.onloadend = () => {
         var row = "";
 
         row += "<tr>";
-        row += "<td>" + JSON.parse(player) + "</td>";
-        row += "<td>" + leaders[player] + "</td>";
+        row += "<td>" + leaders[player][0] + "</td>";
+        row += "<td>" + leaders[player][1] + "</td>";
         row += "</tr>";
 
         document.getElementById("leaderboard-content").innerHTML += row;
