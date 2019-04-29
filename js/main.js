@@ -19,19 +19,20 @@ function changePage() {
 
 // Get leaderbaord on page load
 var req = new XMLHttpRequest();
-req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
-// req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
+// req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
+req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
 req.setRequestHeader('Content-Type', 'application/json');
 req.onloadend = () => {
     var leaders = JSON.parse(req.response);
     
     document.getElementById("leaderboard-content").innerHTML = "";
-    for (player in leaders) {
+
+    for (score in leaders) {
         var row = "";
 
         row += "<tr>";
-        row += "<td>" + leaders[player][0] + "</td>";
-        row += "<td>" + leaders[player][1] + "</td>";
+        row += "<td>" + JSON.parse(leaders[score][1]) + "</td>";
+        row += "<td>" + leaders[score][0] + "</td>";
         row += "</tr>";
 
         document.getElementById("leaderboard-content").innerHTML += row;
