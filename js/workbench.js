@@ -381,14 +381,9 @@ function showRobotResults(results) {
     var score = 1000 * correct - 300 * incorrect - 200 * (NUMBEROFTOOLS - itemsPlaced);
 
     var req = new XMLHttpRequest();
-    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/score', true);
     // req.open('POST', 'http://127.0.0.1:5000/api/score', true);
     req.setRequestHeader('Content-Type', 'application/json');
-    req.onreadystatechange = () => {
-        if (this.status === 400) {
-            console.log(req.responseText);
-        }
-    }
     req.send(JSON.stringify({'player': localStorage.getItem('playerName'), 'score': score}));
 
     document.getElementById("num-correct").innerText = correct;

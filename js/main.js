@@ -30,7 +30,7 @@ req.onloadend = () => {
         var row = "";
 
         row += "<tr>";
-        row += "<td>" + player + "</td>";
+        row += "<td>" + JSON.parse(player) + "</td>";
         row += "<td>" + leaders[player] + "</td>";
         row += "</tr>";
 
