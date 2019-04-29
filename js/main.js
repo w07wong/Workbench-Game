@@ -16,3 +16,35 @@ function changePage() {
         window.location.href = "form.html";
     }, 2400);
 }
+
+// Get leaderbaord on page load
+var req = new XMLHttpRequest();
+req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
+// req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
+req.setRequestHeader('Content-Type', 'application/json');
+req.onloadend = () => {
+    var leaders = JSON.parse(req.response);
+    
+    document.getElementById("leaderboard-content").innerHTML = "";
+    for (player in leaders) {
+        var row = "";
+
+        row += "<tr>";
+        row += "<td>" + player + "</td>";
+        row += "<td>" + leaders[player] + "</td>";
+        row += "</tr>";
+
+        document.getElementById("leaderboard-content").innerHTML += row;
+    }
+}
+req.send();
+
+function showLeaderboard() {
+    $('.leaderboard-popup').css({opacity: 0, display: 'flex'}).animate({
+        opacity: 1
+    }, 800);
+}
+
+function hideLeaderboard() {
+    $('.leaderboard-popup').fadeOut(800);
+}

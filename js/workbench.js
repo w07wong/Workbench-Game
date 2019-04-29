@@ -1,7 +1,7 @@
 // For snapping
 var startPos = null;
 
-var GAMELENGTH = 60;
+var GAMELENGTH = 1;
 var NUMBEROFTOOLS = 20
 
 var PLAYER = null;
@@ -380,16 +380,24 @@ function showRobotResults(results) {
     var incorrect = Math.round(itemsPlaced * (1 - accuracy));
     var score = 1000 * correct - 300 * incorrect - 200 * (NUMBEROFTOOLS - itemsPlaced);
 
+    var req = new XMLHttpRequest();
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/score', true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.onreadystatechange = () => {
+        if (this.status === 400) {
+            console.log(req.responseText);
+        }
+    }
+    req.send(JSON.stringify({'player': localStorage.getItem('playerName'), 'score': score}));
+
     document.getElementById("num-correct").innerText = correct;
     document.getElementById("num-incorrect").innerText = incorrect;
     document.getElementById("score").innerText = score;
 }
 
 function playAgain() {
-    $(".timesup").fadeOut(800);
-    $(".pre-classify").show();
-    $(".classifying").hide();
-    $(".post-classify").hide();
+    $(".timesup").hide();
 
     // Hide early done buttton
     $("#done").hide();
@@ -401,7 +409,11 @@ function playAgain() {
     // Remove old tools
     $(".draggable").remove();
     
-    $(".section").fadeIn(800);
+    $(".section").fadeIn();
+
+    $(".pre-classify").show();
+    $(".classifying").hide();
+    $(".post-classify").hide();
 
     setTimeout(function () {
         drawTools();

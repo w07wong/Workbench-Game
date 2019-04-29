@@ -51,6 +51,28 @@
                         <source src="hsr_video.mp4" type="video/mp4">
                     </video>
                 </div>
+
+                <div id="leaderboard-button" onclick="showLeaderboard()">
+                    <h2>Global Leaderboard</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard-popup">
+            <div class="intro">
+                <span class="close" onclick="hideLeaderboard()">&times;</span>
+                <table id="leaderboard-table" class="table borderless">
+                    <caption>Top 10 Worldwide Players</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-content">
+                        <!-- Generate rows here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 
