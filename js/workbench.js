@@ -1,7 +1,7 @@
 // For snapping
 var startPos = null;
 
-var GAMELENGTH = 0;
+var GAMELENGTH = 60;
 var NUMBEROFTOOLS = 20
 
 var PLAYER = null;
