@@ -11,7 +11,7 @@ html, body {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     overflow: hidden;
     flex-direction: column;
 }
@@ -25,14 +25,13 @@ html, body {
 
 .title h1 {
     color: white;
-    font-size: 6rem;
+    font-size: 5rem;
 }
 
 .intro {
     text-align: center;
-    background: rgba(255, 255, 255, 1);
-    padding: 20px;
-    margin: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 1vh;
     z-index: 2;
     width: 60%;
     border-radius: 50px;
@@ -40,8 +39,8 @@ html, body {
 }
 
 .intro h1 {
-    font-size: 2.5rem;
-    color: #3B72F3;
+    font-size: 2rem;
+    color: #fff;
 }
 
 #w-letter {
@@ -53,8 +52,8 @@ html, body {
 }
 
 .intro h2 {
-    font-size: 1.5rem;
-    color: #FF6C11;
+    font-size: 1.25rem;
+    color: #fff;
 }
 
 .intro button {
@@ -73,7 +72,7 @@ html, body {
 }
 
 .intro p, a {
-    color: #3B72F3;
+    color: #fff;
 }
 
 .video-container {
@@ -276,11 +275,12 @@ html, body {
 
 #leaderboard-button {
     z-index: 2;
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
     color: #000;
-    font-size: 1.5rem;
-    padding: 15px 20px;
+    font-size: 1rem;
+    padding: 0.1vh 2vh;
+    margin-bottom: 1vh;
     display: flex;
     align-content: center;
     justify-content: center;
@@ -290,8 +290,8 @@ html, body {
 }
 
 #leaderboard-button h2 {
-    font-size: 1.5rem;
-    color: #3B72F3;
+    font-size: 1.25rem;
+    color: #fff;
 }
 
 .leaderboard-popup {
@@ -309,7 +309,7 @@ html, body {
 
 #leaderboard-table {
     width: 100%;
-    font-size: 2rem;
+    font-size: 1.25rem;
     color: #FF8927;
 }
 
