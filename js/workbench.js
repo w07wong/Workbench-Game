@@ -251,7 +251,12 @@ function drawTools() {
 
         // Random x, y pos
         var x = Math.floor(Math.random() * (window.innerWidth * 0.9)) + (window.innerWidth * 0.05);
-        var y = Math.floor(Math.random() * (window.innerHeight * 0.2)) + (window.innerHeight * 0.7);
+        var y;
+        if (window.innerHeight < 800) {
+            y = Math.floor(Math.random() * (window.innerHeight * 0.1)) + (window.innerHeight * 0.8);
+        } else {
+            y = Math.floor(Math.random() * (window.innerHeight * 0.2)) + (window.innerHeight * 0.7);
+        }
         div.style.position = "absolute";
         div.style.left = x + "px";
         div.style.top = y - 100 + "px";
