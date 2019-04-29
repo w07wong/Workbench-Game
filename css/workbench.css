@@ -287,11 +287,12 @@ body {
 
 .classifying {
     display: none;
+    text-align:center;
 }
 
 .loader {
     position: relative;
-    left: 50%;
+    margin: auto;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #FF6C11;
