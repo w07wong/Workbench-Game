@@ -1,7 +1,7 @@
 // For snapping
 var startPos = null;
 
-var GAMELENGTH = 1;
+var GAMELENGTH = 60;
 var NUMBEROFTOOLS = 20
 
 var PLAYER = null;
@@ -257,7 +257,7 @@ function drawTools() {
         div.style.top = y - 100 + "px";
 
         $(div).prepend(img);
-        
+
         div.setAttribute('data-true-x', x);
         div.setAttribute('data-true-y', y);
 
@@ -345,8 +345,8 @@ function endGameFunctions() {
 
 function sendToDB() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/game', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/game', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onreadystatechange = () => {
         if (this.status === 400) {
@@ -358,8 +358,8 @@ function sendToDB() {
 
 function svmClassify() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
         console.log(req.responseText);
