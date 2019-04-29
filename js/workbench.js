@@ -1,15 +1,16 @@
 // For snapping
 var startPos = null;
 
-var GAMELENGTH = 60;
+var GAMELENGTH = 20;
 var NUMBEROFTOOLS = 20
 
 var PLAYER = null;
 var AGE = null;
-var FEEDBACK = null;
 
 var dataToSave = {};
 dataToSave.state = [{}];
+
+var itemsPlaced = 0;
 
 localStorage.removeItem('gameHistory');
 
@@ -36,24 +37,22 @@ var images = {
     "20": ["scrap4", "scrap"],
     "21": ["scrap5", "scrap"],
     "22": ["scrap6", "scrap"],
-    "23": ["scrap7", "scrap"],
-    "24": ["scrap8", "scrap"],
-    "25": ["tool1", "tool"],
-    "26": ["tool2", "tool"],
-    "27": ["tool3", "tool"],
-    "28": ["tool4", "tool"],
-    "29": ["tool5", "tool"],
-    "30": ["tool6", "tool"],
-    "31": ["tool7", "tool"],
-    "32": ["tool8", "tool"],
-    "33": ["tube1", "tube"],
-    "34": ["tube2", "tube"],
-    "35": ["tube3", "tube"],
-    "36": ["tube4", "tube"],
-    "37": ["tube5", "tube"],
-    "38": ["tube6", "tube"],
-    "39": ["tube7", "tube"],
-    "40": ["tube8", "tube"],
+    "23": ["tool1", "tool"],
+    "24": ["tool2", "tool"],
+    "25": ["tool3", "tool"],
+    "26": ["tool4", "tool"],
+    "27": ["tool5", "tool"],
+    "28": ["tool6", "tool"],
+    "29": ["tool7", "tool"],
+    "30": ["tool8", "tool"],
+    "31": ["tube1", "tube"],
+    "32": ["tube2", "tube"],
+    "33": ["tube3", "tube"],
+    "34": ["tube4", "tube"],
+    "35": ["tube5", "tube"],
+    "36": ["tube6", "tube"],
+    "37": ["tube7", "tube"],
+    "38": ["tube8", "tube"],
 };
 
 interact('.draggable')
@@ -78,19 +77,6 @@ interact('.draggable')
                 right: 1
             }
         },
-        // onstart: function (event) {
-        //     var rect = interact.getElementRect(event.target);
-        //     // record center point when starting the very first a drag
-        //     startPos = {
-        //         x: rect.left + rect.width  / 2,
-        //         y: rect.top  + rect.height / 2
-        //     }
-        //     event.interactable.draggable({
-        //         snap: {
-        //             targets: [startPos]
-        //         }
-        //     });
-        // },
         onmove: dragMoveListener,
     });
 
@@ -112,9 +98,7 @@ function dragMoveListener(event) {
 }
 
 interact('.dropzone').dropzone({
-    // only accept elements matching this CSS selector
-    // accept: '#yes-drop',
-    // Require a 75% element overlap for a drop to be possible
+    // Require a 25% element overlap for a drop to be possible
     overlap: .25,
 
     // listen for drop related events:
@@ -125,30 +109,17 @@ interact('.dropzone').dropzone({
     },
     ondragenter: function (event) {
         var draggableElement = event.relatedTarget,
-            dropzoneElement = event.target,
-            dropRect = interact.getElementRect(dropzoneElement);
-        // dropCenter = {
-        //   x: dropRect.left + dropRect.width  / 2,
-        //   y: dropRect.top  + dropRect.height / 2
-        // };
-
-        // event.draggable.draggable({
-        //     snap: {
-        //         targets: [dropCenter]
-        //     }
-        // });
+            dropzoneElement = event.target;
 
         // feedback the possibility of a drop
         dropzoneElement.classList.add('drop-target');
         draggableElement.classList.add('can-drop');
-        // draggableElement.textContent = 'Dragged in';
     },
     ondragleave: function (event) {
         // remove the drop feedback style
         event.target.classList.remove('drop-target');
         event.relatedTarget.classList.remove('can-drop');
         event.relatedTarget.classList.remove('dropped');
-        // event.relatedTarget.textContent = 'Dragged out';
 
         // Remove snapping
         event.draggable.draggable({
@@ -182,6 +153,9 @@ var seconds = GAMELENGTH;
 
 function timer(timerDisplay) {
     if (seconds >= 0) {
+        if (seconds < GAMELENGTH / 2) {
+            $("#done").fadeIn(500);
+        }
         timerDisplay.innerText = seconds;
         seconds--;
         savePositions("state" + seconds);
@@ -193,6 +167,8 @@ function timer(timerDisplay) {
 function startTimer() {
     var timerDisplay = document.getElementById('timer');
     var timerWidthDecrease = $("#timer-bar").width() / 60;
+
+    dataToSave.datetime = JSON.stringify(new Date());
 
     timerInterval = setInterval(function () {
         timer(timerDisplay)
@@ -213,7 +189,6 @@ function savePositions(state) {
         var tool = $(obj).attr('data-name');
         var id = $(obj).attr('data-object-id');
         // undefined if object is never clicked 
-        // console.log(images[tool][0] + ": " + $(obj).attr('data-true-x') + ', ' + $(obj).attr('data-true-y'));
         dataToSave.state[0][state][images[tool][0] + "_" + id] = [$(obj).attr('data-true-x'), $(obj).attr('data-true-y')];
     });
 }
@@ -228,43 +203,22 @@ function saveTools() {
 }
 
 function saveGroupings() {
-    var totalScore = 0;
     $('.dropzone').each(function (i, obj) {
         var toolsContained = $(obj).data('toolsContained');
 
         dataToSave["bin" + i] = [];
 
-        var tool = 0;
-        var scrap = 0;
-        var box = 0;
-        var tube = 0;
-
         for (var j = 0; j < toolsContained.length; j++) {
             var tool = toolsContained[j];
             var toolName = images[tool][0];
-            var toolCategory = images[tool][1];
 
             dataToSave["bin" + i].push(toolName);
-            // console.log(toolName);
-
-            switch (toolCategory) {
-                case "tool":
-                    tool++;
-                case "scrap":
-                    scrap++;
-                case "box":
-                    box++;
-                case "tube":
-                    tube++;
-                default:
-                    break;
-            }
+            itemsPlaced++;
         }
-        var binScore = parseInt((tool / 2)) + parseInt((scrap / 2)) + parseInt((box / 2)) + parseInt((tube / 2));
-        console.log(binScore);
-        totalScore += binScore;
     });
-    alert("Times Up! \nYour score: " + totalScore);
+    $('.timesup').css({opacity: 0, display: 'flex'}).animate({
+        opacity: 1
+    }, 1000);
 }
 
 var numTools;
@@ -336,7 +290,16 @@ function startGame() {
     }, 500);
 }
 
+function finishedGame() {
+    savePositions("state0");
+    setTimeout(function () {
+        saveGameToLocal(dataToSave, endGameFunctions);
+    }, 1000);
+}
+
 function quitGame() {
+    localStorage.removeItem('gameHistory');
+
     var top = $("#switch-top");
     top.show();
     top.animate({ top: "50vh"}, 800);
@@ -355,17 +318,11 @@ function quitGame() {
     }, 2400);
 }
 
-function promptFeedback() {
-    var feedback = prompt("What was your organization strategy?", "ex: By color, shape, utility, etc.");
-    FEEDBACK = feedback;
-    dataToSave.feedback = FEEDBACK;
-}
-
 function saveGameToLocal(game, callback) {
     // Save game to local storage to reduce requests to backend
     var gameHistory = JSON.parse(localStorage.getItem('gameHistory'));
     if (gameHistory == null) {
-        gameHistory = []
+        gameHistory = [];
     }
     gameHistory.push(dataToSave);
     localStorage.setItem('gameHistory', JSON.stringify(gameHistory));
@@ -379,18 +336,14 @@ function endGameFunctions() {
     savePositions("state" + seconds);
     // Save contents for each bin
     saveGroupings();
-    // Ask user how they grouped tools
-    promptFeedback();
     // Save game data to database
     sendToDB();
-    // Run classifier with gameplay
-    svmClassify();
 }
 
 function sendToDB() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/game', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/game', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/game', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onreadystatechange = () => {
         if (this.status === 400) {
@@ -402,8 +355,8 @@ function sendToDB() {
 
 function svmClassify() {
     var req = new XMLHttpRequest();
-    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
-    req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
+    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
+    // req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
         console.log(req.responseText);
@@ -416,65 +369,48 @@ function svmClassify() {
 }
 
 function showRobotResults(results) {
-    var modal = document.getElementById('popup');
-    modal.style.display = "block";
-    document.getElementById("popup-form").display = "hidden";
-    document.getElementById("popup-accuracy").display = "block";
-    document.getElementById("classify-table").display="block";
-    document.getElementById("popup-accuracy").innerHTML = "Previous Run's Classifier Accuracy: " + results["accuracy"];
-    document.getElementById("classify-table").innerHTML = "";
+    $(".classifying").fadeOut(800);
+    $(".post-classify").delay(800).fadeIn(800);
 
-    for (key in results) {
-        if (key !== "accuracy") {
-            var row = "";
+    var accuracy = results["accuracy"];
+    var correct = Math.round(itemsPlaced * accuracy);
+    var incorrect = Math.round(itemsPlaced * (1 - accuracy));
+    var score = 1000 * correct - 300 * incorrect - 200 * (NUMBEROFTOOLS - itemsPlaced);
 
-            row += "<tr>";
-            row += "<td>" + key + "</td>";
-
-            var classifications = "<td>";
-
-            for (var i = 0; i < results[key].length; i++) {
-                var t = results[key][i];
-                var s = "";
-                if (t[1]) {
-                    s = "<span style=\"color:green;\">" + t[0] + "</span>";
-                } else {
-                    s = "<span style=\"color:red;\">" + t[0] + "</span>";
-                }
-                if (i !== results[key].length - 1) {
-                    s += ", ";
-                }
-                classifications += s;
-            }
-
-            classifications += "</td>";
-
-            row += classifications;
-            document.getElementById("classify-table").innerHTML += row;
-        }
-    }
+    document.getElementById("num-correct").innerText = correct;
+    document.getElementById("num-incorrect").innerText = incorrect;
+    document.getElementById("score").innerText = score;
 }
 
-function closePopup() {
-    var modal = document.getElementById('popup');
-    modal.style.display = "none";
-    
-    // Play again?
-    var playAgain = confirm("Play again?");
-    if (playAgain !== true) {
-        localStorage.removeItem('gameHistory');
-    } else {
-        // Remove old tools
-        $(".draggable").remove();
-        
+function playAgain() {
+    $(".timesup").fadeOut(800);
+    $(".pre-classify").show();
+    $(".classifying").hide();
+    $(".post-classify").hide();
 
-        alert("Organize the workbench in the next 60 seconds!");
+    // Hide early done buttton
+    $("#done").hide();
+
+    // Reset timer bar
+    $("#timer-bar").css("width", "80%");
+    $("#timer-bar").css("left", "10%");
+
+    // Remove old tools
+    $(".draggable").remove();
+    
+    $(".section").fadeIn(800);
+
+    setTimeout(function () {
+        drawTools();
+        addToolsStorage();
         timerInterval = null;
         seconds = GAMELENGTH;
-        startTimer();
-    }
+    }, 800);
 }
 
-function showBeforeBlur() {
-
+function transitionToClassifying() {
+    $(".pre-classify").fadeOut(800);
+    $(".classifying").delay(800).fadeIn(800);
+    // Run classifier with gameplay
+    svmClassify();
 }

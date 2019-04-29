@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Workbench Decluttering</title>
+    <title>Workbench Decluttering!</title>
     <!-- JQuery -->
     <script src="js/jquery-3.1.0.js""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>   
@@ -31,10 +31,11 @@
     </div>
 
     <div id="navbar">
-        <button onclick="quitGame()">Quit</button>
+        <button id="quit" onclick="quitGame()">Quit</button>
         <div id="timer-bar">
             <div id="timer">60</div>
         </div>
+        <button id="done" onclick="finishedGame()">Done</button>
     </div>
 
     <div id="workbench">
@@ -57,6 +58,31 @@
         <div class="bin">
             <div class="dropzone"></div>
             <p>Scrap</p>
+        </div>
+    </div>
+
+    <div class="timesup">
+        <div class="intro">
+            <div class="pre-classify">
+                <h1>Times Up!</h1>
+                <h1>Teach a robot to organize the workbench with your game data!</h1>
+                <button onclick="transitionToClassifying()">CLASSIFY!</button>
+            </div>
+            <div class="classifying">
+                <h1>Classifying...</h1>
+                <div class="loader"></div>
+            </div>
+            <div class="post-classify">
+                <h1>Done!</h1>
+                <br />
+                <h2>In 60 seconds, your robot placed </h2><h2 id="num-correct"></h2><h2> items correctly and </h2><h2 id="num-incorrect"></h2><h2> items incorrectly.</h2>
+                <br />
+                <h2>Your robot's score: </h2><h2 id="score"></h2>
+                <br />
+                <br />
+                <button onclick="playAgain()">Keep Training Your Robot!</button>
+                <button onclick="quitGame()">Quit</button>
+            </div>
         </div>
     </div>
 
