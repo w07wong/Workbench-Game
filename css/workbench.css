@@ -291,7 +291,7 @@ body {
 
 .loader {
     position: relative;
-    left: 40%;
+    left: 50%;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #FF6C11;
