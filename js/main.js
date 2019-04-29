@@ -19,8 +19,8 @@ function changePage() {
 
 // Get leaderbaord on page load
 var req = new XMLHttpRequest();
-// req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
-req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
+req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
+// req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
 req.setRequestHeader('Content-Type', 'application/json');
 req.onloadend = () => {
     var leaders = JSON.parse(req.response);
