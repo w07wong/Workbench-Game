@@ -187,7 +187,7 @@ body {
 #done {
     position: absolute;
     top: 1%;
-    left: 91%;
+    right: 1%;
     background-color: #3B72F3;
     border: none;
     color: white;
