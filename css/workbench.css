@@ -40,11 +40,11 @@ body {
 
 .intro h1 {
     font-size: 2.5rem;
-    color: #3B72F3;
+    color: #003262;
 }
 
 .intro button {
-    background-color: #FF6C11;
+    background-color: #FDB515;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -150,7 +150,7 @@ body {
     position: absolute;
     top: 1%;
     left: 1%;
-    background-color: #3B72F3;
+    background-color: #003262;
     border: none;
     color: white;
     padding: 1vh 2vh;
@@ -179,8 +179,10 @@ body {
 #timer {
     position: absolute;
     margin-top: -60px;
-    /* left: 45%; */
-    color: rgb(255, 131, 55);
+    left: 46%;
+    height: 20px;
+    width: 80%;
+    color: #003262;
     font-size: 100px;
     text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
 }
@@ -189,7 +191,7 @@ body {
     position: absolute;
     top: 1%;
     right: 1%;
-    background-color: #3B72F3;
+    background-color: #003262;
     border: none;
     color: white;
     padding: 1vh 2vh;
@@ -260,7 +262,7 @@ body {
     display: none;
     height: 2px;
     width: 100%;
-    background-color: #FF8927;
+    background-color: #FDB515;
     z-index: 1001;
 }
 
@@ -296,7 +298,7 @@ body {
     margin: auto;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #FF6C11;
+    border-top: 16px solid #FDB515;
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite;
@@ -331,5 +333,5 @@ body {
 
 .post-classify h2 {
     display: inline;
-    color: #3B72F3;
+    color: #003262;
 }

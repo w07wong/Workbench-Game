@@ -153,9 +153,7 @@ var seconds = GAMELENGTH;
 
 function timer(timerDisplay) {
     if (seconds >= 0) {
-        if (seconds < GAMELENGTH / 2) {
-            $("#done").fadeIn(500);
-        }
+        $("#done").fadeIn(500);
         timerDisplay.innerText = seconds;
         seconds--;
         savePositions("state" + seconds);
@@ -166,14 +164,11 @@ function timer(timerDisplay) {
 
 function startTimer() {
     var timerDisplay = document.getElementById('timer');
-    var timerWidthDecrease = $("#timer-bar").width() / 60;
 
     dataToSave.datetime = JSON.stringify(new Date());
 
     timerInterval = setInterval(function () {
         timer(timerDisplay)
-        $("#timer-bar").width($("#timer-bar").width() - timerWidthDecrease);
-        $("#timer-bar").css("left", "+=" + timerWidthDecrease / 2);
     }, 1000);
 }
 
@@ -318,8 +313,7 @@ function quitGame() {
 
     var bar = $("#switch-bar");
     bar.delay(800).fadeIn(100);
-    bar.delay(800).animate({ width: "20%", left: "40%" }, 800);
-
+    bar.delay(200).animate({ width: "20%", left: "40%" }, 800);
 
     setTimeout(function () {
         window.location.href = "index.html";
@@ -402,10 +396,6 @@ function playAgain() {
     // Hide early done buttton
     $("#done").hide();
 
-    // Reset timer bar
-    $("#timer-bar").css("width", "80%");
-    $("#timer-bar").css("left", "10%");
-
     // Remove old tools
     $(".draggable").remove();
     
@@ -424,8 +414,8 @@ function playAgain() {
 }
 
 function transitionToClassifying() {
-    $(".pre-classify").fadeOut(800);
-    $(".classifying").delay(800).fadeIn(800);
+    $(".pre-classify").fadeOut(400);
+    $(".classifying").delay(400).fadeIn(400);
     // Run classifier with gameplay
     svmClassify();
 }

@@ -37,7 +37,7 @@ body {
     border: 1px solid #888;
     width: 50%;
     border-radius: 50px;
-    color: #3B72F3;
+    color: #003262;
 }
 
 .info-form-content input {
@@ -48,7 +48,7 @@ body {
 }
 
 .info-form-content button {
-    background-color: #FF6C11;
+    background-color: #FDB515;
     border: none;
     color: white;
     padding: 15px 32px;
