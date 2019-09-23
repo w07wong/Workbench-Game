@@ -9,7 +9,8 @@ html {
 
 body {
     background-image: url(../images/trapezoid.svg);
-    background-size: cover;
+    background-size: 1200px;
+    background-position-x: center;
     background-position-y: 96px;
     background-repeat: no-repeat;
 }
