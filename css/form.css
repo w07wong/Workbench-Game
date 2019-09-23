@@ -183,7 +183,7 @@ body {
     left: 40%;
     height: 2px;
     width: 20%;
-    background-color: #FF8927;
+    background-color: #FDB515;
     z-index: 1001;
     animation-name: expandWidth;
     animation-duration: 0.8s;
