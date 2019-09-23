@@ -11,7 +11,6 @@ function changePage() {
     bar.delay(800).fadeIn(100);
     bar.delay(200).animate({ width: "20%", left: "40%" }, 800);
 
-
     setTimeout(function () {
         window.location.href = "form.html";
     }, 2400);

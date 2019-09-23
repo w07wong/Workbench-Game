@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <meta name="description" content="Workbench Decluttering.  UC Berkeley AUTOLAB">
+
+        <link rel="icon" href="./images/CPAR-icon-circle-02.png" type="image/gif" sizes="16x16">
+
+        <!-- STYLESHEET -->
+        <link rel="stylesheet" href="css/style.css">
+
+        <!-- FONT -->
+        <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
+        <!-- JS -->
+        <script src="js/main.js"></script>
+
+        <!-- JQUERY -->
+        <script src="js/jquery-3.1.0.js"></script>        
+
+        <title>Workbench Decluttering</title>
+    </head>
+
+    <body>
+        <div id="load-top"></div>
+        <div id="load-bar"></div>
+        <div id="load-bottom"></div>
+
+        <div class="cover">
+            <div class="section">
+                <div class="title">
+                    <h1>NSF SCHooL</h1>
+                </div>
+                <div class="intro">
+                    <h1>Beta Test: Help Train Our Robot to Clean Up A Machine Shop</h1>
+
+                    <h2>By playing this game you will help train our robot to clean up a machine shop by  
+                    providing realistic demonstrations of how humans perform this task.  You will
+                    see 5 bins on a cluttered floor with objects like tools and scrap.  You will have
+                    60 seconds to click and drag as many objects as possible into the appropriate bins and we will
+                    show your score afterward.</h2>
+                    
+                    <button onclick="changePage()">LET'S GO</button>
+                    
+                    <link to UC Berkeley SCHooL Project>
+                    <p>For more information: click <a href=https://schoolproject.berkeley.edu/>here.</a></p>
+                </div>
+    
+                <div class="video-container">
+                    <div class="color-overlay"></div>
+                    <video autoplay loop muted>
+                        <source src="hsr_video.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <div id="leaderboard-button" onclick="showLeaderboard()">
+                    <h2>Global Leaderboard</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="leaderboard-popup">
+            <div class="leaderboard-intro">
+                <span class="close" onclick="hideLeaderboard()">&times;</span>
+                <table id="leaderboard-table" class="table borderless">
+                    <caption>Top 10 Worldwide Players</caption>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-content">
+                        <!-- Generate rows here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="switch-top"></div>
+        <div id="switch-bar"></div>
+        <div id="switch-bottom"></div>
+    </body>
+</html>

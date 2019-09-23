@@ -1,0 +1,90 @@
+html, body {
+    color: #020A3D;
+    font-family: 'Roboto', sans-serif;
+}
+
+html {
+    background-color: transparent;
+}
+
+body {
+    background-image: url(../images/trapezoid.svg);
+    background-size: cover;
+    background-position-y: 96px;
+    background-repeat: no-repeat;
+}
+
+hr {
+    background-color: #ccc;
+}
+
+/*
+ * Navigation
+ */
+.navbar {
+    background-color: transparent;
+}
+
+nav .navbar-nav li a{
+    margin-bottom: -100px;
+    font-size: 18px;
+}
+
+/*
+ * Jumbotron
+ */
+.jumbotron {
+    background-color: transparent;
+    margin: -20px auto !important;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 26px;
+}
+
+@media (min-width: 1200px) {
+    .header, .jumbotron, .body-content {
+        width: 1200px;
+        margin: auto;
+    }
+}
+
+/*
+ * Body Content
+ */
+.body-content {
+    text-align: center;
+}
+
+.body-text {
+    font-size: 1.25rem;
+    text-align: left;
+    font-weight: bold;
+}
+
+.play {
+    background-color: #FCB62F; /* Green */
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block;
+    margin: 0 auto;
+    font-size: 22px;
+    font-weight: bold;
+    box-shadow: 10px 10px rgba(0, 0, 0, 0.15);
+}
+
+footer {
+    color: #020A3D; 
+    font-weight: bold;
+}
+
+footer a, footer a:hover {
+    color: #020A3D;
+    text-decoration: underline;
+}
