@@ -1,3 +1,3 @@
 function goToForm() {
-    window.location.href="/form.html"
+    window.location.href="/Workbench-Game/form.html"
 }

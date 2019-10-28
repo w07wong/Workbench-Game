@@ -4,7 +4,7 @@ function goToWorkbench() {
     localStorage.setItem('playerName', JSON.stringify(playerName));
     localStorage.setItem('playerAge', JSON.stringify(playerAge));
     
-    window.location.href = "bench.html";
+    window.location.href = "/Workbench-Game/bench.html";
 }
 
 $(function () {
