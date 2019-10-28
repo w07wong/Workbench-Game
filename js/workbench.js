@@ -10,9 +10,9 @@ var AGE = null;
 var dataToSave = {};
 dataToSave.state = [{}];
 
-var itemsPlaced = 0;
-
 localStorage.removeItem('gameHistory');
+
+var bins = ['tool', 'box', 'tube', 'print', 'scrap']
 
 var images = {
     "1": ["box1", "box"],
@@ -23,14 +23,14 @@ var images = {
     "6": ["box6", "box"],
     "7": ["box7", "box"],
     "8": ["box8", "box"],
-    "9": ["print1", "scrap"],
-    "10": ["print2", "scrap"],
-    "11": ["print3", "scrap"],
-    "12": ["print4", "scrap"],
-    "13": ["print5", "scrap"],
-    "14": ["print6", "scrap"],
-    "15": ["print7", "scrap"],
-    "16": ["print8", "scrap"],
+    "9": ["print1", "print"],
+    "10": ["print2", "print"],
+    "11": ["print3", "print"],
+    "12": ["print4", "print"],
+    "13": ["print5", "print"],
+    "14": ["print6", "print"],
+    "15": ["print7", "print"],
+    "16": ["print8", "print"],
     "17": ["scrap1", "scrap"],
     "18": ["scrap2", "scrap"],
     "19": ["scrap3", "scrap"],
@@ -208,12 +208,11 @@ function saveGroupings() {
             var toolName = images[tool][0];
 
             dataToSave["bin" + i].push(toolName);
-            itemsPlaced++;
         }
     });
     $('.timesup').css({opacity: 0, display: 'flex'}).animate({
         opacity: 1
-    }, 1000);
+    }, 500);
 }
 
 var numTools;
@@ -248,9 +247,9 @@ function drawTools() {
         var x = Math.floor(Math.random() * (window.innerWidth * 0.9)) + (window.innerWidth * 0.05);
         var y;
         if (window.innerHeight < 800) {
-            y = Math.floor(Math.random() * (window.innerHeight * 0.1)) + (window.innerHeight * 0.8);
+            y = Math.floor(Math.random() * (window.innerHeight * 0.1)) + (window.innerHeight * 0.75);
         } else {
-            y = Math.floor(Math.random() * (window.innerHeight * 0.2)) + (window.innerHeight * 0.7);
+            y = Math.floor(Math.random() * (window.innerHeight * 0.2)) + (window.innerHeight * 0.65);
         }
         div.style.position = "absolute";
         div.style.left = x + "px";
@@ -287,10 +286,10 @@ function checkContainer() {
 }
 
 function startGame() {
-    $(".section").fadeOut(800);
+    $(".section").fadeOut(400);
     setTimeout(function () {
         startTimer();
-    }, 500);
+    }, 400);
 }
 
 function finishedGame() {
@@ -355,29 +354,33 @@ function sendToDB() {
     req.send(JSON.stringify(dataToSave));
 }
 
-function svmClassify() {
-    var req = new XMLHttpRequest();
-    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/predict', true);
-    // req.open('POST', 'http://127.0.0.1:5000/api/predict', true);
-    req.setRequestHeader('Content-Type', 'application/json');
-    req.onloadend = () => {
-        console.log(req.responseText);
-        showRobotResults(JSON.parse(req.responseText));
-    }
-    var gameHistory = localStorage.getItem('gameHistory');
-    // gameHistory = "[" + gameHistory + "]";
-    console.log(gameHistory);
-    req.send(gameHistory);
+function scoreGame() {
+    var correct = 0;
+    var incorrect = 0;
+
+    $('.dropzone').each(function (i, obj) {
+        var toolsContained = $(obj).data('toolsContained');
+        var binCategory = bins[i];
+
+        for (var j = 0; j < toolsContained.length; j++) {
+            var tool = toolsContained[j];
+            var toolCategory = images[tool][1];
+
+            if (toolCategory == binCategory) {
+                correct++;
+            } else {
+                incorrect++;
+            }
+        }
+    });
+
+    showResults(correct, incorrect, NUMBEROFTOOLS - (correct + incorrect));
 }
 
-function showRobotResults(results) {
+function showResults(correct, incorrect, itemsPlaced) {
     $(".classifying").fadeOut(800);
-    $(".post-classify").delay(800).fadeIn(800);
 
-    var accuracy = results["accuracy"];
-    var correct = Math.round(itemsPlaced * accuracy);
-    var incorrect = Math.round(itemsPlaced * (1 - accuracy));
-    var score = 1000 * correct - 300 * incorrect - 200 * (NUMBEROFTOOLS - itemsPlaced);
+    var score = 1000 * correct - 300 * incorrect - 200 * itemsPlaced;
 
     var req = new XMLHttpRequest();
     req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/score', true);
@@ -385,9 +388,13 @@ function showRobotResults(results) {
     req.setRequestHeader('Content-Type', 'application/json');
     req.send(JSON.stringify({'player': localStorage.getItem('playerName'), 'score': score, 'datetime': new Date().toString()}));
 
-    document.getElementById("num-correct").innerText = correct;
-    document.getElementById("num-incorrect").innerText = incorrect;
-    document.getElementById("score").innerText = score;
+    setTimeout(() => {
+        $(".post-classify").delay(800).fadeIn(800);
+        document.getElementById("num-correct").innerText = correct;
+        document.getElementById("num-incorrect").innerText = incorrect;
+        document.getElementById("num-left").innerText = itemsPlaced;
+        document.getElementById("score").innerText = score;
+    }, 805);
 }
 
 function playAgain() {
@@ -410,12 +417,48 @@ function playAgain() {
         addToolsStorage();
         timerInterval = null;
         seconds = GAMELENGTH;
+        document.getElementById('timer').innerText = GAMELENGTH;
     }, 800);
 }
 
 function transitionToClassifying() {
     $(".pre-classify").fadeOut(400);
     $(".classifying").delay(400).fadeIn(400);
-    // Run classifier with gameplay
-    svmClassify();
+    // Score gameplay
+    scoreGame();
+}
+
+function showLeaderboard() {
+    // Get leaderbaord
+    var req = new XMLHttpRequest();
+    req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
+    // req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
+    req.setRequestHeader('Content-Type', 'application/json');
+    req.onloadend = () => {
+        $(".leaderboard-loader").fadeOut(400);
+        $(".leaderboard").delay(400).fadeIn(400);
+        var leaders = JSON.parse(req.response);
+        
+        document.getElementById("leaderboard-content").innerHTML = "";
+
+        for (score in leaders) {
+            var row = "";
+
+            row += "<tr>";
+            row += "<td>" + JSON.parse(leaders[score][1]) + "</td>";
+            row += "<td>" + leaders[score][0] + "</td>";
+            row += "</tr>";
+
+            document.getElementById("leaderboard-content").innerHTML += row;
+        }
+    }
+    req.send();
+
+    $('.leaderboard-popup').css({opacity: 0, display: 'flex'}).animate({
+        opacity: 1
+    }, 400);
+}
+
+function hideLeaderboard() {
+    $('.leaderboard-popup').fadeOut(400);
 }

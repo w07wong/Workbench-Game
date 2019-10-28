@@ -1,13 +1,10 @@
-function changePage() {
+function goToWorkbench() {
     var playerName = document.getElementById("playerName").value;
     var playerAge = document.getElementById("playerAge").value;
     localStorage.setItem('playerName', JSON.stringify(playerName));
     localStorage.setItem('playerAge', JSON.stringify(playerAge));
-    $('#fade-cover').fadeIn(250);
     
-    setTimeout(function () {
-        window.location.href = "bench.html";
-    }, 250);
+    window.location.href = "bench.html";
 }
 
 $(function () {

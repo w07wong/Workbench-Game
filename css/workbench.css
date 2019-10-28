@@ -1,6 +1,5 @@
 html, body {
     height: 100%;
-    font-family: 'Righteous', cursive;
     margin: 0;
 }
 
@@ -34,28 +33,30 @@ body {
     padding: 20px;
     margin: 15px;
     z-index: 2000;
-    width: 60%;
-    border-radius: 50px;
+    width: 55%;
+    border-radius: 10px;
 }
 
 .intro h1 {
     font-size: 2.5rem;
     color: #003262;
+    text-align: center;
 }
 
 .intro button {
-    background-color: #FDB515;
+    background-color: #FCB62F;
     border: none;
     color: white;
-    padding: 15px 32px;
+    padding: 5px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 2rem;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 50px;
-    font-family: 'Righteous', cursive;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
 }
 
 @keyframes fadeIn {
@@ -98,7 +99,9 @@ body {
 
 .bin p {
     color: #fff;
+    font-family: 'Roboto', sans-serif;
     font-size: 40px;
+    font-weight: bold;
     text-align: center;
     margin-top: -40px;
 }
@@ -153,27 +156,16 @@ body {
     background-color: #003262;
     border: none;
     color: white;
-    padding: 1vh 2vh;
+    padding: 0.75vh 2vh;
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 2rem;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 50px;
-    font-family: 'Righteous', cursive;
-}
-
-#timer-bar {
-    position: relative;
-    top: 0;
-    left: 10%;
-    height: 20px;
-    width: 80%;
-    border-radius: 50px;
-    background-color: #fff;
-    display: flex;
-    justify-content: center;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
 }
 
 #timer {
@@ -183,8 +175,9 @@ body {
     height: 20px;
     width: 80%;
     color: #003262;
-    font-size: 100px;
-    text-shadow: -1px 0 #fff, 0 1px #fff, 1px 0 #fff, 0 -1px #fff;
+    font-size: 90px;
+    font-weight: bolder;
+    /* text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; */
 }
 
 #done {
@@ -194,14 +187,15 @@ body {
     background-color: #003262;
     border: none;
     color: white;
-    padding: 1vh 2vh;
+    padding: 0.75vh 2vh;
     text-align: center;
     text-decoration: none;
     font-size: 2rem;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 50px;
-    font-family: 'Righteous', cursive;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bolder;
     display: none;
 }
 
@@ -262,7 +256,7 @@ body {
     display: none;
     height: 2px;
     width: 100%;
-    background-color: #FDB515;
+    background-color: #FCB62F;
     z-index: 1001;
 }
 
@@ -298,7 +292,7 @@ body {
     margin: auto;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
-    border-top: 16px solid #FDB515;
+    border-top: 16px solid #FCB62F;
     width: 120px;
     height: 120px;
     -webkit-animation: spin 2s linear infinite;
@@ -334,4 +328,104 @@ body {
 .post-classify h2 {
     display: inline;
     color: #003262;
+}
+
+.post-classify p {
+    font-size: 28px;
+    color: #003262;
+    display: inline;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: -5%;
+    margin-left: 2%;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.leaderboard-intro {
+    text-align: center;
+    background: rgba(255, 255, 255, 1);
+    padding: 1vh;
+    z-index: 2;
+    width: 50%;
+    border-radius: 10px;
+    margin-top: -40px;
+}
+
+.leaderboard-intro h1 {
+    font-size: 1.75rem;
+    color: #fff;
+}
+
+.leaderboard-intro h2 {
+    font-size: 1rem;
+    color: #fff;
+}
+
+#leaderboard-button {
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: #000;
+    font-size: 1rem;
+    padding: 0.1vh 2vh;
+    margin-bottom: 1vh;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#leaderboard-button h2 {
+    font-size: 1.25rem;
+    color: #fff;
+}
+
+.leaderboard-popup {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(10, 10, 10, 0.6);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    display: none;
+}
+
+#leaderboard-table {
+    width: 100%;
+    font-size: 1.25rem;
+    color: #003262;
+}
+
+#leaderboard-table th {
+    color: #003262;
+}
+
+#leaderboard-table th, td {
+    border-bottom: 1px solid #aaa;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+.leaderboard {
+    display: none;
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="./images/CPAR-icon-circle-02.png" type="image/gif" sizes="16x16">
+
+    <!-- JQuery -->
+    <script src="js/jquery-3.1.0.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous">
+    </script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
+    </script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/form.css">
+
+    <!-- JS -->
+    <script src="js/form.js"></script>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
+    <title>Workbench Decluttering</title>
+</head>
+
+<body>
+    <div id="load-top"></div>
+    <div id="load-bar"></div>
+    <div id="load-bottom"></div>
+
+    <div class="info-form">
+        <div class="info-form-content">
+            <form>
+                <div class="form-group">
+                    <label for="playerName">What is your name?</label>
+                    <input type="text" class="form-control" id="playerName" aria-describedby="nameHelp"
+                        placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="playerAge">How old are you?</label>
+                    <p>(We are curious how age affects performance.)</p>
+                    <input type="number" name="quantity" class="form-control" id="playerAge" placeholder="Age" min="1" max="150">
+                </div>
+            </form>
+            <button onclick="changePage()">PLAY</button>
+        </div>
+    </div>
+
+    <div id="fade-cover"></div>
+</body>
+
+</html>

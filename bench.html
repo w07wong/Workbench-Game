@@ -19,7 +19,7 @@
     <!-- Main JS -->
     <script src="js/workbench.js"></script>
     <!-- FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -27,15 +27,14 @@
     <div class="section">
         <div class="intro">
             <h1>You have 60 seconds to organize the workbench.</h1>
-            <h1>Ready?</h1>
-            <button onclick="startGame()">GO</button>
+            <button onclick="startGame()">START</button>
         </div>
     </div>
 
     <div id="navbar">
         <button id="quit" onclick="quitGame()">Quit</button>
         <div id="timer">60</div>
-        <button id="done" onclick="finishedGame()">Done</button>
+        <button id="done" onclick="finishedGame()">Finish</button>
     </div>
 
     <div id="workbench">
@@ -64,24 +63,44 @@
     <div class="timesup">
         <div class="intro">
             <div class="pre-classify">
-                <h1>Times Up</h1>
-                <h1>Teach a robot to organize the workbench with your game data.</h1>
-                <button onclick="transitionToClassifying()">CLASSIFY</button>
+                <h1>Times Up!</h1>
+                <button onclick="transitionToClassifying()">SCORE</button>
             </div>
             <div class="classifying">
-                <h1>Classifying...</h1>
+                <h1>Scoring...</h1>
                 <div class="loader"></div>
             </div>
             <div class="post-classify">
-                <h1>Done!</h1>
-                <br />
-                <h2>In 60 seconds, your robot placed </h2><h2 id="num-correct"></h2><h2> items correctly and </h2><h2 id="num-incorrect"></h2><h2> items incorrectly.</h2>
-                <br />
-                <h2>Your robot's score: </h2><h2 id="score"></h2>
+                <h2>Your score: </h2><h2 id="score"></h2>
                 <br />
                 <br />
-                <button onclick="playAgain()">Keep Training Your Robot</button>
-                <button onclick="quitGame()">Quit</button>
+                <p>In 60 seconds, you placed </p><p id="num-correct"></p><p> items correctly, misplaced </p><p id="num-incorrect"></p><p> items and left </p><p id="num-left"></p><p> items alone.</p>
+                <br />
+                <br />
+                <button onclick="showLeaderboard()">Leaderboard</button>
+                <button onclick="playAgain()">Play Again</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="leaderboard-popup">
+        <div class="leaderboard-intro">
+            <div class="leaderboard-loader">
+                <div class="loader"></div>
+            </div>
+            <div class="leaderboard">
+                <span class="close" onclick="hideLeaderboard()">&times;</span>
+                <table id="leaderboard-table" class="table borderless">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-content">
+                        <!-- Generate rows here -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

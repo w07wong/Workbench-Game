@@ -1,0 +1,206 @@
+html, body {
+    height: 100%;
+    font-family: 'Righteous', cursive;
+    overflow: hidden;
+}
+
+html {
+    background-image: url("../images/workbench.jpg");
+    background-size: cover;
+}
+
+body {
+    background-image: url("../images/formbackground.png");
+    background-size: cover;
+    display: flex;
+    margin: 0;
+}
+
+/* Popup */
+.info-form {
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+/* Modal Content/Box */
+.info-form-content {
+    font-size: 2rem;
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    border-radius: 50px;
+    color: #003262;
+}
+
+.info-form-content input {
+    text-align: center;
+    height: 125%;
+    font-size: 2rem;
+    border-radius: 50px;
+}
+
+.info-form-content button {
+    background-color: #FDB515;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+@keyframes slideToTop {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-webkit-keyframes slideToTop {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes slideToBottom {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-webkit-keyframes slideToBottom {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+        display: none;
+    }
+}
+
+#load-top {
+    position: absolute;
+    top: 0px;
+    height: 50vh;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+    animation-name: slideToTop;
+    animation-duration: 1s;
+    animation-delay: 0.8s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
+}
+
+#load-bottom {
+    position: absolute;
+    top: 50vh;
+    height: 50vh;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1000;
+    animation-name: slideToBottom;
+    animation-duration: 1s;
+    animation-delay: 0.8s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
+}
+
+@keyframes expandWidth {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        width: 100%;
+        left: 0;
+        opacity: 0;
+        display: none;
+    }
+}
+
+@-webkit-keyframes expandWidth {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        width: 100%;
+        left: 0;
+        opacity: 0;
+        display: none;
+    }
+}
+
+#load-bar {
+    position: absolute;
+    top: 50vh;
+    left: 40%;
+    height: 2px;
+    width: 20%;
+    background-color: #FDB515;
+    z-index: 1001;
+    animation-name: expandWidth;
+    animation-duration: 0.8s;
+    animation-delay: 0s;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-fill-mode: forwards;
+}
+
+#fade-cover {
+    height: 100vh;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1001;
+    display: none;
+}
+
+.form-group p{
+    font-size: 1rem;
+}
