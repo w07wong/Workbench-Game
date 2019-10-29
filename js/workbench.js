@@ -390,6 +390,8 @@ function showResults(correct, incorrect, itemsPlaced) {
 
     setTimeout(() => {
         $(".post-classify").delay(800).fadeIn(800);
+        console.log(seconds);
+        document.getElementById("seconds").innerText = GAMELENGTH - (seconds + 1);
         document.getElementById("num-correct").innerText = correct;
         document.getElementById("num-incorrect").innerText = incorrect;
         document.getElementById("num-left").innerText = itemsPlaced;
