@@ -415,7 +415,6 @@ function showResults(correct, incorrect, itemsPlaced) {
 
     setTimeout(() => {
         $(".post-classify").delay(800).fadeIn(800);
-        console.log(seconds);
         document.getElementById("seconds").innerText = GAMELENGTH - (seconds + 1);
         document.getElementById("num-correct").innerText = correct;
         document.getElementById("num-incorrect").innerText = incorrect;
@@ -462,7 +461,6 @@ function showLeaderboard() {
     // req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
-        console.log(req.response);
         $(".leaderboard-loader").fadeOut(400);
         $(".leaderboard").delay(400).fadeIn(400);
         var leaders = JSON.parse(req.response);
