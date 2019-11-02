@@ -227,7 +227,7 @@ function drawTools() {
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
-        var blur = Math.floor(Math.random() * 2);
+        var blur = Math.floor(Math.random() * 3);
 
         var img = document.createElement("img");
         img.setAttribute("src", "./images/" + tool + ".png");

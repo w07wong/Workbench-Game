@@ -143,7 +143,6 @@ body {
 }
 
 #navbar {
-    /* background-color: black; */
     top: 0;
     padding: 30px;
     width: 100%;
@@ -168,22 +167,23 @@ body {
     font-weight: bolder;
 }
 
-#timer {
+.nav-group {
     position: absolute;
+    left: 50%;
+    margin-left: -50px;
+}
+
+#timer {
     margin-top: -60px;
-    left: 46%;
     height: 20px;
     width: 80%;
     color: #003262;
     font-size: 90px;
     font-weight: bolder;
-    /* text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000; */
+    text-align: center;
 }
 
 #done {
-    position: absolute;
-    top: 1%;
-    right: 1%;
     background-color: #003262;
     border: none;
     color: white;
@@ -191,7 +191,8 @@ body {
     text-align: center;
     text-decoration: none;
     font-size: 2rem;
-    margin: 4px 2px;
+    margin-top: 20px;
+    margin-left: 110%;
     cursor: pointer;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;

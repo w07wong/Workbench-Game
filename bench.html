@@ -33,8 +33,10 @@
 
     <div id="navbar">
         <button id="quit" onclick="quitGame()">Quit</button>
-        <div id="timer">60</div>
-        <button id="done" onclick="finishedGame()">Finish</button>
+        <div class="nav-group">
+            <div id="timer">60</div>
+            <button id="done" onclick="finishedGame()">Finish</button>
+        </div>
     </div>
 
     <div id="workbench">
@@ -63,7 +65,7 @@
     <div class="timesup">
         <div class="intro">
             <div class="pre-classify">
-                <h1>Times Up!</h1>
+                <h1>Good Work!</h1>
                 <button onclick="transitionToClassifying()">SCORE</button>
             </div>
             <div class="classifying">
