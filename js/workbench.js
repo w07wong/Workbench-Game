@@ -404,10 +404,14 @@ function showResults(correct, incorrect, itemsPlaced) {
     var score = 1000 * correct - 300 * incorrect - 200 * itemsPlaced;
 
     var req = new XMLHttpRequest();
-    req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/score', true);
-    // req.open('POST', 'http://127.0.0.1:5000/api/score', true);
+    // req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/score', true);
+    req.open('POST', 'http://127.0.0.1:5000/api/score', true);
     req.setRequestHeader('Content-Type', 'application/json');
-    req.send(JSON.stringify({'player': localStorage.getItem('playerName'), 'score': score, 'datetime': new Date().toString()}));
+    var playerName = localStorage.getItem('playerName');
+    if (playerName == null) {
+        playerName = "\"Anonymous\"";
+    }
+    req.send(JSON.stringify({'player': playerName, 'score': score, 'datetime': new Date().toString()}));
 
     setTimeout(() => {
         $(".post-classify").delay(800).fadeIn(800);
@@ -458,6 +462,7 @@ function showLeaderboard() {
     // req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
+        console.log(req.response);
         $(".leaderboard-loader").fadeOut(400);
         $(".leaderboard").delay(400).fadeIn(400);
         var leaders = JSON.parse(req.response);
