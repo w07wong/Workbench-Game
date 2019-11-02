@@ -176,7 +176,7 @@ body {
 #timer {
     margin-top: -60px;
     height: 20px;
-    width: 80%;
+    width: 80px;
     color: #003262;
     font-size: 90px;
     font-weight: bolder;
@@ -192,7 +192,7 @@ body {
     text-decoration: none;
     font-size: 2rem;
     margin-top: 20px;
-    margin-left: 110%;
+    margin-left: 120%;
     cursor: pointer;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;

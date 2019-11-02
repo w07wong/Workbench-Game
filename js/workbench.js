@@ -219,11 +219,33 @@ var numTools;
 var topZIndex;
 
 function drawTools() {
-    // numTools = Math.floor(Math.random() * 10) + 10;
     numTools = NUMBEROFTOOLS;
     topZIndex = numTools + 1;
+    toolsCategory = 0;
+    tubesCategory = 0;
+    boxesCategory = 0;
+    printsCategory = 0;
+    scrapCategory = 0;
     for (i = 0; i < numTools; i++) {
-        var tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
+        var tool = 0;
+        if (toolsCategory < 3) {
+            tool = Math.floor(Math.random() * 8) + 22 + 1;
+            toolsCategory += 1;
+        } else if (tubesCategory < 3) {
+            tool = Math.floor(Math.random() * 8) + 30 + 1;
+            tubesCategory += 1;
+        } else if (boxesCategory < 3) {
+            tool = Math.floor(Math.random() * 8) + 1;
+            boxesCategory += 1;
+        } else if (printsCategory < 3) {
+            tool = Math.floor(Math.random() * 8) + 8 + 1;
+            printsCategory += 1;
+        } else if (scrapCategory < 3) {
+            tool = Math.floor(Math.random() * 6) + 16 + 1;
+            scrapCategory += 1;
+        } else {
+            tool = Math.floor(Math.random() * Object.keys(images).length) + 1;
+        }
         var workbench = document.getElementById('workbench');
 
         var deg = Math.floor(Math.random() * 360);
@@ -234,7 +256,6 @@ function drawTools() {
         img.setAttribute("height", "60%");
         img.setAttribute("width", "60%");
         img.setAttribute("style", "transform:rotate(" + deg + "deg);" + "filter: blur(" + blur + "px) brightness(125%)");
-        // img.setAttribute("filter", "brightness(200%)");
 
         var div = document.createElement('div');
         div.setAttribute("class", "draggable");
@@ -244,7 +265,7 @@ function drawTools() {
         div.setAttribute("data-object-id", i);
 
         // Random x, y pos
-        var x = Math.floor(Math.random() * (window.innerWidth * 0.9)) + (window.innerWidth * 0.05);
+        var x = Math.floor(Math.random() * (window.innerWidth * 0.85)) + (window.innerWidth * 0.05);
         var y;
         if (window.innerHeight < 800) {
             y = Math.floor(Math.random() * (window.innerHeight * 0.1)) + (window.innerHeight * 0.75);
