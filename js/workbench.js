@@ -4,11 +4,14 @@ var startPos = null;
 var GAMELENGTH = 60;
 var NUMBEROFTOOLS = 20
 
-var PLAYER = null;
+var PLAYER_NAME = null;
 var AGE = null;
 
 var dataToSave = {};
 dataToSave.state = [{}];
+
+var LEADERBOARD = {};
+var PLAYER_SCORE = 0;
 
 localStorage.removeItem('gameHistory');
 
@@ -308,6 +311,7 @@ function checkContainer() {
 
 function startGame() {
     $(".section").fadeOut(400);
+    getLeaderboard();
     setTimeout(function () {
         startTimer();
     }, 400);
@@ -401,7 +405,7 @@ function scoreGame() {
 function showResults(correct, incorrect, itemsPlaced) {
     $(".classifying").fadeOut(800);
 
-    var score = 1000 * correct - 300 * incorrect - 200 * itemsPlaced;
+    PLAYER_SCORE = 1000 * correct - 300 * incorrect - 200 * itemsPlaced;
 
     var req = new XMLHttpRequest();
     req.open('POST', 'https://polar-tundra-56313.herokuapp.com/api/score', true);
@@ -411,7 +415,8 @@ function showResults(correct, incorrect, itemsPlaced) {
     if (playerName == null || playerName === "\"\"") {
         playerName = "\"Anonymous\"";
     }
-    req.send(JSON.stringify({'player': playerName, 'score': score, 'datetime': new Date().toString()}));
+    PLAYER_NAME = playerName;
+    req.send(JSON.stringify({'player': playerName, 'score': PLAYER_SCORE, 'datetime': new Date().toString()}));
 
     setTimeout(() => {
         $(".post-classify").delay(800).fadeIn(800);
@@ -419,7 +424,7 @@ function showResults(correct, incorrect, itemsPlaced) {
         document.getElementById("num-correct").innerText = correct;
         document.getElementById("num-incorrect").innerText = incorrect;
         document.getElementById("num-left").innerText = itemsPlaced;
-        document.getElementById("score").innerText = score;
+        document.getElementById("score").innerText = PLAYER_SCORE;
     }, 805);
 }
 
@@ -454,31 +459,42 @@ function transitionToClassifying() {
     scoreGame();
 }
 
-function showLeaderboard() {
+function getLeaderboard() {
     // Get leaderbaord
     var req = new XMLHttpRequest();
     req.open('GET', 'https://polar-tundra-56313.herokuapp.com/api/leaderboard', true);
     // req.open('GET', 'http://127.0.0.1:5000/api/leaderboard', true);
     req.setRequestHeader('Content-Type', 'application/json');
     req.onloadend = () => {
-        $(".leaderboard-loader").fadeOut(400);
-        $(".leaderboard").delay(400).fadeIn(400);
-        var leaders = JSON.parse(req.response);
-        
-        document.getElementById("leaderboard-content").innerHTML = "";
-
-        for (score in leaders) {
-            var row = "";
-
-            row += "<tr>";
-            row += "<td>" + JSON.parse(leaders[score][1]) + "</td>";
-            row += "<td>" + leaders[score][0] + "</td>";
-            row += "</tr>";
-
-            document.getElementById("leaderboard-content").innerHTML += row;
-        }
+        LEADERBOARD = JSON.parse(req.response);
     }
     req.send();
+}
+
+function showLeaderboard() {
+    // Get leaderbaord
+    $(".leaderboard-loader").fadeOut(400);
+    $(".leaderboard").delay(400).fadeIn(400);
+
+    document.getElementById("leaderboard-content").innerHTML = "";
+
+    LEADERBOARD[LEADERBOARD.length] = [PLAYER_SCORE, PLAYER_NAME];
+    LEADERBOARD.sort(function (a, b) {
+        return b[0] - a[0];
+    });
+    LEADERBOARD = LEADERBOARD.slice(0, 10);
+    console.log(LEADERBOARD)
+
+    for (score in LEADERBOARD) {
+        var row = "";
+
+        row += "<tr>";
+        row += "<td>" + JSON.parse(LEADERBOARD[score][1]) + "</td>";
+        row += "<td>" + LEADERBOARD[score][0] + "</td>";
+        row += "</tr>";
+
+        document.getElementById("leaderboard-content").innerHTML += row;
+    }
 
     $('.leaderboard-popup').css({opacity: 0, display: 'flex'}).animate({
         opacity: 1
