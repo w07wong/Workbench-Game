@@ -483,7 +483,6 @@ function showLeaderboard() {
         return b[0] - a[0];
     });
     LEADERBOARD = LEADERBOARD.slice(0, 10);
-    console.log(LEADERBOARD)
 
     for (score in LEADERBOARD) {
         var row = "";
